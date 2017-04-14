@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="{{ config('app.locale') }}">
     <head>
         <meta charset="utf-8">
@@ -65,6 +66,12 @@
         </style>
     </head>
     <body>
+      @php
+      if(DB::connection()->getDatabaseName())
+      {
+          echo "connected successfully to database ".DB::connection()->getDatabaseName();
+      }
+      @endphp
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
