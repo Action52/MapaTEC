@@ -32,3 +32,7 @@ Route::get('pr', function()
 {
     return View::make('pages.pr');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

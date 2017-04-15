@@ -34,8 +34,7 @@
       <!-- Page Content -->
 
       <div class="w3-container w3-teal">
-        <!--Se reemplazará por un header de menú-->
-        <h1>Mapa TEC</h1>
+        @yield('cabecera')
       </div>
 
 
