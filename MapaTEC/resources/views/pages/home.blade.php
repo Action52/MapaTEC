@@ -1,6 +1,6 @@
 @extends('layouts.default')
 @section('mapa')
-  <div id="map" style="width:100%; height:100%;"></div>
+  <div id="map"></div>
   <script>
   function initMap() {
     // Create a map object and specify the DOM element for display.
