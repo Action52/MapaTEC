@@ -15,17 +15,17 @@ class CampusesTableSeeder extends Seeder
       DB::insert("INSERT INTO campuses (name, geom)
         VALUES (
           'Puebla',
-          ST_GeomFromText('POINT(27.43 -5.09)',4326) )
+          ST_GeomFromText('POINT(19.02199 -98.2377051)',4326) )
       ");
       DB::insert("INSERT INTO campuses (name, geom)
         VALUES (
           'Santa Fe',
-          ST_GeomFromText('POINT(14.39 -16.40)',4326) )
+          ST_GeomFromText('POINT(19.3593887 -99.2626476)',4326) )
       ");
       DB::insert("INSERT INTO campuses (name, geom)
         VALUES (
           'Toluca',
-          ST_GeomFromText('POINT(69.99 1.02)',4326) )
+          ST_GeomFromText('POINT(19.2687639 -99.7100848)',4326) )
       ");
     }
 }

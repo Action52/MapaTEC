@@ -67,21 +67,33 @@
 </div>
 @endsection
 @section('mapa')
+  @php
+    use App\campus;
+    //Retrieve all data from table
+    $query = 'SELECT ST_X(geom) AS lat, ST_Y(geom) AS lon FROM campuses';
+    $latlongs = DB::select($query);
+  @endphp
+
   <div id="map"></div>
   <script>
   function initMap() {
     // Create a map object and specify the DOM element for display.
-    var myPos = {lat: -34.397, lng: 150.644};
+    var myPos = {lat: 19.432608, lng: -99.133209};
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -34.397, lng: 150.644},
+      center: {lat: 19.432608, lng: -99.133209},
       scrollwheel: false,
-      zoom: 8
+      zoom: 6
     });
-    var marker = new google.maps.Marker({
-      position: myPos,
-      map: map,
-      title: 'Prueba!'
-    });
+    <?php
+      foreach ($latlongs as $latlong) {
+    ?>
+    var myPos = {lat: <?php echo $latlong->lat?>, lng: <?php echo $latlong->lon?>};
+      var marker = new google.maps.Marker({
+        position: myPos,
+        map: map,
+        title: 'Prueba!'
+      });
+    <?php } ?>
   }
 
   </script>
