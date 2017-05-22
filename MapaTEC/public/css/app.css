@@ -1,4 +1,33 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);/*!
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+.header-mapatec{
+  background-color: rgb(150, 190, 255);
+}
+
+.body-mapatec{
+  background-image: url(/../img/wallpaper-satellite.jpg);
+}
+
+.register-space{
+  background-color: rgba(105,100,100,0.8);
+  color: #ffffff;
+
+}
+
+.register{
+    align-self: center;
+}
+
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}
+
+/*!
+
  * Bootstrap v3.3.7 (http://getbootstrap.com)
  * Copyright 2011-2016 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
