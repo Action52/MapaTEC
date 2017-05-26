@@ -15,7 +15,7 @@ class ProjectController extends Controller
       $id = $user->id;
       //Seleccionar los proyectos del usuario
 
-      $projects = \DB::select(\DB::raw("SELECT projects.id AS id, projects.name AS name, projects.description AS description 
+      $projects = \DB::select(\DB::raw("SELECT projects.id AS id, projects.name AS name, projects.description AS description
         FROM projects, users, project_has_user
         WHERE users.id = '$user->id'
         AND project_has_user.id = '$user->id'
@@ -80,7 +80,11 @@ class ProjectController extends Controller
       Return: response
     */
     public function destroy($id){
+      $project = project::find($id);
+      $project->delete();
 
+      \Session::flash('message', 'Proyecto eliminado exitosamente.');
+      return \Redirect::to('crudproyectos');
 
     }
 

@@ -32,7 +32,7 @@
         <!--Edit the project, uses edit method-->
         <a class = "btn btn-small btn-info" href="{{ URL::to('crudproyectos/' . $value->id . '/edit') }}"> Actualizar </a>
         <!--Delete uses DESTROY method, still to do-->
-        {{ Form::open(array('url' => 'nerds/' . $value->id, 'class' => 'pull-right')) }}
+        {{ Form::open(array('url' => 'crudproyectos/' . $value->id, 'class' => 'pull-right')) }}
              {{ Form::hidden('_method', 'DELETE') }}
              {{ Form::submit('Eliminar', array('class' => 'btn btn-warning')) }}
          {{ Form::close() }}
