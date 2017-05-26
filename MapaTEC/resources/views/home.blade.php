@@ -10,7 +10,7 @@
                 <div class="panel-body">
                     You are logged in!
 
-                    <a href ="{{ URL::to('crudproyectos/index') }}">Mis proyectos</a>
+                    <a href ="{{ URL::to('crudproyectos') }}">Mis proyectos</a>
                 </div>
             </div>
         </div>

@@ -30,6 +30,27 @@
   align-items: center;
 }
 
+.project-box{
+  background-color: rgba(1, 14, 186, 0.5);
+  border-radius: 5px;
+  color: #ffffff;
+}
+
+.project-image{
+  max-height: 150px;
+  height: 150px;
+  max-width: 150px;
+  width: 150px;
+  border-radius: 75px;
+  border: 1px solid #000000;
+}
+
+.page-title{
+  background-color: rgba(1, 14, 186, 0.5);
+  border-radius: 5px;
+  color: #ffffff;
+}
+
 /*!
 
  * Bootstrap v3.3.7 (http://getbootstrap.com)

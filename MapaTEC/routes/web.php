@@ -10,7 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//Para crud de proyectos
+Route::resource('crudproyectos', 'ProjectController');
 
 Route::get('/', function()
 {

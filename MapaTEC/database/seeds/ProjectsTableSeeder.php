@@ -43,6 +43,20 @@ class ProjectsTableSeeder extends Seeder
         'role' => 'Líder'
       ]);
 
+      DB::table('project_has_user')->insert([
+        'project_id' => 2,
+        'user_id' => 2,
+        'owner' => 'True',
+        'role' => 'Líder'
+      ]);
+
+      DB::table('project_has_user')->insert([
+        'project_id' => 3,
+        'user_id' => 2,
+        'owner' => 'True',
+        'role' => 'Líder'
+      ]);
+
       DB::table('project_has_strategicpartner')->insert([
         'project_id' => 1,
         'sp_id' => 1,

@@ -11,12 +11,21 @@ class ProjectController extends Controller
 
     public function index(){
       //get all the projects
-      $id = \Session::getId();
-      $projects = project::where();
+      $user = \Auth::user();
+      $id = $user->id;
+      //Seleccionar los proyectos del usuario
 
-      //Load the view and pass the nerds with alias nerds
+      $projects = \DB::select(\DB::raw("SELECT projects.id AS id, projects.name AS name, projects.description AS description 
+        FROM projects, users, project_has_user
+        WHERE users.id = '$user->id'
+        AND project_has_user.id = '$user->id'
+        AND projects.id = project_has_user.project_id"));
+      //Obtener la info de cada proyecto
 
-      return \View::make('crudproyectos.index')->with('nerds',$nerds);
+      //Load the view and pass the nerds with alias projects
+
+      //return view('crudproyectos.index')->with('projects',$projects);
+      return \View::make('crudproyectos.index')->with('projects', $projects);
     }
 
     /*
@@ -25,7 +34,7 @@ class ProjectController extends Controller
       Return: response
     */
     public function create(){
-      return \View::make('nerds.create');
+
     }
 
     /*
@@ -34,32 +43,7 @@ class ProjectController extends Controller
       Return: response
     */
     public function store(Request $request){
-      //Validate
 
-      $rules = array(
-        'name' => 'required',
-        'email' => 'required|email',
-        'nerd_level' => 'required|numeric'
-      );
-
-      $validator = Validator::make($request->all(), $rules);
-
-      if($validator->fails()){
-        return Redirect::to('nerds/create')
-          ->withErrors($validator)
-          ->withInput();
-      }
-      else{
-        $nerd = new Nerd;
-        $nerd->name = $request->input('name');
-        $nerd->email = $request->input('email');
-        $nerd->nerd_level = $request->input('nerd_level');
-        $nerd->save(); //Estos son metodos del MODELO
-
-        \Session::flash('message', 'Successfully created nerd!');
-
-        return \Redirect::to('nerds');
-      }
     }
 
     /*
@@ -68,10 +52,7 @@ class ProjectController extends Controller
       Return: response
     */
     public function show($id){
-      //Get the nerd
-      $nerd = Nerd::find($id);
 
-      return \View::make('nerds.show')->with('nerd', $nerd);
     }
 
     /*
@@ -80,10 +61,7 @@ class ProjectController extends Controller
       Return: response
     */
     public function edit($id){
-      //Get the nerd
-      $nerd = Nerd::find($id);
 
-      return \View::make('nerds.edit')->with('nerd', $nerd);
     }
 
     /*
@@ -92,30 +70,7 @@ class ProjectController extends Controller
       Return: response
     */
     public function update(Request $request, $id){
-      $rules = array(
-        'name' => 'required',
-        'email' => 'required|email',
-        'nerd_level' => 'required|numeric'
-      );
 
-      $validator = Validator::make($request->all(), $rules);
-
-      if($validator->fails()){
-        return Redirect::to('nerds/' . $id . '/edit')
-          ->withErrors($validator)
-          ->withInput();
-      }
-      else{
-        $nerd = Nerd::find($id);
-        $nerd->name = $request->input('name');
-        $nerd->email = $request->input('email');
-        $nerd->nerd_level = $request->input('nerd_level');
-        $nerd->save(); //Estos son metodos del MODELO
-
-        \Session::flash('message', 'Successfully updated nerd!');
-
-        return \Redirect::to('nerds');
-      }
 
     }
 
@@ -125,11 +80,7 @@ class ProjectController extends Controller
       Return: response
     */
     public function destroy($id){
-      $nerd = Nerd::find($id);
-      $nerd->delete();
 
-      \Session::flash('message', 'Successfully deleted the nerd!');
-      return \Redirect::to('nerds');
 
     }
 
