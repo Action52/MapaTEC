@@ -19,12 +19,14 @@ class CreateCoursesTable extends Migration
             $table->string('name');
             $table->timestamps();
         });
-
+        Schema::enableForeignKeyConstraints();
         //project_has_course
         Schema::create('project_has_course', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('course_id');
+            $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->timestamps();
         });
 

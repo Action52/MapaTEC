@@ -22,14 +22,16 @@ class CreateProjectsTable extends Migration
             $table->timestamps();
         });
 
-
+        Schema::enableForeignKeyConstraints();
       //Relational tables
 
         //project_has_strategicpartner
         Schema::create('project_has_strategicpartner', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('sp_id');
+            $table->foreign('sp_id')->references('id')->on('strategicpartners')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -37,7 +39,9 @@ class CreateProjectsTable extends Migration
         Schema::create('project_has_user', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->boolean('owner');
             $table->string('role');
             $table->timestamps();
@@ -47,7 +51,9 @@ class CreateProjectsTable extends Migration
         Schema::create('project_has_campus', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('campus_id');
+            $table->foreign('campus_id')->references('id')->on('campuses')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -55,7 +61,9 @@ class CreateProjectsTable extends Migration
         Schema::create('project_has_category', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
 
@@ -63,7 +71,9 @@ class CreateProjectsTable extends Migration
         Schema::create('project_has_time', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('time_id');
+            $table->foreign('time_id')->references('id')->on('times')->onDelete('cascade');
             $table->timestamps();
         });
 

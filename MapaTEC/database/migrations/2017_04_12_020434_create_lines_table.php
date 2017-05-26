@@ -23,12 +23,14 @@ class CreateLinesTable extends Migration
 
         DB::statement('ALTER TABLE lines ADD COLUMN geom GEOMETRY(LINESTRING,4326)');
 
-
+        Schema::enableForeignKeyConstraints();
         //location_has_line
         Schema::create('location_has_line', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('location_id');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->integer('line_id');
+            $table->foreign('line_id')->references('id')->on('lines')->onDelete('cascade');
             $table->timestamps();
         });
     }

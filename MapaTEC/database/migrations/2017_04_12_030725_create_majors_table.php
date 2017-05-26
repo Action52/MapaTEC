@@ -20,12 +20,14 @@ class CreateMajorsTable extends Migration
             $table->string('program');
             $table->timestamps();
         });
-
+        Schema::enableForeignKeyConstraints();
         //project_has_major
         Schema::create('project_has_major', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('major_id');
+            $table->foreign('major_id')->references('id')->on('majors')->onDelete('cascade');
             $table->timestamps();
         });
     }

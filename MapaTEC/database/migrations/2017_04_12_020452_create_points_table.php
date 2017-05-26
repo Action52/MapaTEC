@@ -22,12 +22,14 @@ class CreatePointsTable extends Migration
         //Insert geometry
 
         DB::statement('ALTER TABLE points ADD COLUMN geom GEOMETRY(POINT,4326)');
-
+        Schema::enableForeignKeyConstraints();
         //location_has_point
         Schema::create('location_has_point', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('location_id');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->integer('point_id');
+            $table->foreign('point_id')->references('id')->on('points')->onDelete('cascade');
             $table->timestamps();
         });
     }

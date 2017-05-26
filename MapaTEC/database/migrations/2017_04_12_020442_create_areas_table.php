@@ -22,12 +22,14 @@ class CreateAreasTable extends Migration
         //Insert geometry
 
         DB::statement('ALTER TABLE areas ADD COLUMN geom GEOMETRY(POLYGON,4326)');
-
+        Schema::enableForeignKeyConstraints();
         //location_has_area
         Schema::create('location_has_area', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('location_id');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->integer('area_id');
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
             $table->timestamps();
         });
     }

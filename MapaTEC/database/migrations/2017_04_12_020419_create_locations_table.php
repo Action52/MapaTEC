@@ -18,12 +18,14 @@ class CreateLocationsTable extends Migration
             $table->string('description');
             $table->timestamps();
         });
-
+        Schema::enableForeignKeyConstraints();
         //project_has_location
         Schema::create('project_has_location', function (BluePrint $table) {
             $table->increments('id');
             $table->integer('project_id');
+            $table->foreign('project_id')->references('id')->on('projects')->onDelete('cascade');
             $table->integer('location_id');
+            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
             $table->timestamps();
         });
 

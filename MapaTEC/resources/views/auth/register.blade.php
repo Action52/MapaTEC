@@ -17,12 +17,15 @@
       <!-- Page Content -->
       <div class ="row">
         <div class ="col-md-6">
+          <div class ="col-md-2 sidebar-register">
+            <img src ="img/itesm.png" height ="50" width ="50">
+          </div>
         </div>
         <div class ="col-md-6 register-space register">
           <h1>Registro</h1>
 
           <h3>
-            Forma parte de MapaTec! Si eres miembro de la comunidad del Tecnológico de Monterrey, ¡únete!
+            ¡Forma parte de MapaTec! Si eres miembro de la comunidad del Tecnológico de Monterrey, ¡únete!
           </h3>
           <h5>
             <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
@@ -57,7 +60,7 @@
                 </div>
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                    <label for="email" class="col-md-4 control-label">Correo electrónico</label>
+                    <label for="email" class="col-md-4 control-label">Correo institucional</label>
 
                     <div class="col-md-6">
                         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -92,6 +95,14 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label for="conditions" class="col-md-4 control-label">
+                    He leído y acepto los <a href ="../terminosycondiciones.blade.php">términos y condiciones.</a></label>
+
+                    <div class="col-md-6">
+                        <input id="conditions" type="checkbox" class="form-control" name="conditions" required>
+                    </div>
+                </div>
                 <div class="form-group">
                     <div class="col-md-6 col-md-offset-4">
                         <button type="submit" class="btn btn-primary">
