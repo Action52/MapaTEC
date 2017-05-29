@@ -58,7 +58,7 @@ class ProjectsTableSeeder extends Seeder
       ]);
 
       DB::table('project_has_strategicpartner')->insert([
-        'project_id' => 1,
+        'project_id' => 2,
         'sp_id' => 1,
       ]);
 

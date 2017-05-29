@@ -32,5 +32,9 @@ class PointsTableSeeder extends Seeder
         'location_id' => 1,
         'point_id' => 1,
       ]);
+      DB::table('location_has_point')->insert([
+        'location_id' => 1,
+        'point_id' => 2,
+      ]);
     }
 }

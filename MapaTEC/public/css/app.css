@@ -5,7 +5,8 @@
 }
 
 .body-mapatec{
-  background-image: url(/../img/wallpaper-satellite.jpg);
+
+  background-color: rgba(188, 204, 255,0.7);
 }
 
 .register-space{
@@ -51,6 +52,30 @@
   color: #ffffff;
 }
 
+
+#map {
+  height: 100%;
+  width: 100%;
+}
+html, body {
+height: 100%;
+margin: 0;
+padding: 0;
+}
+.map-wrapper{
+  margin-left:25%;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.w3-teal{
+  margin-left: 25%;
+}
+
+.project-description-box{
+  background-color: rgba(196, 236, 255,0.7);
+}
 /*!
 
  * Bootstrap v3.3.7 (http://getbootstrap.com)

@@ -12,16 +12,16 @@ class CoursesTableSeeder extends Seeder
     public function run()
     {
       DB::table('courses')->insert([
-        'department' => 'Tecnologías de la Información',
-        'name' => 'Calidad y Pruebas de Software'
+        'name' => 'Calidad y Pruebas de Software',
+        'code' => 'TC3045'
       ]);
       DB::table('courses')->insert([
-        'department' => 'Biotecnología',
-        'name' => 'Biología I'
+        'name' => 'Biología I',
+        'code' => 'BT1009'
       ]);
       DB::table('courses')->insert([
-        'department' => 'Tecnologías de la Información',
-        'name' => 'Fundamentos de la programación'
+        'name' => 'Fundamentos de la programación',
+        'code' => 'TC1014'
       ]);
 
       //Seeds para tablas cruce

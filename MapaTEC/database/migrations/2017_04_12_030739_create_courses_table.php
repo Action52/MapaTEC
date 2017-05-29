@@ -15,8 +15,8 @@ class CreateCoursesTable extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('department');
             $table->string('name');
+            $table->string('code')->unique();
             $table->timestamps();
         });
         Schema::enableForeignKeyConstraints();
