@@ -79,8 +79,23 @@ overflow: hidden;
   height: 92%;
 }
 
+.project-creation-box{
+  background-color: rgba(196, 236, 255,0.7);
+  overflow-y: scroll;
+  height: 92%;
+}
+
 .categories-project{
   background-color: #ffffff;
+}
+
+.inputfile{
+  position: relative;
+}
+
+.input{
+  z-index: 2;
+  opacity: 0;
 }
 /*!
 

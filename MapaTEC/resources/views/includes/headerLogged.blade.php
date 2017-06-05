@@ -2,10 +2,10 @@
   <div class ="col-md-1"></div>
   <div class ="col-md-2">
     <!--Aqui va el logo-->
-    <img src ="img/itesm.png" height ="50" width ="50">
+    <img src ="../img/itesm.png" height ="50" width ="50">
   </div>
   <div class ="col-md-4">
-    <a href="">Nuevo proyecto</a>
+    <a href="crudproyectos/create">Nuevo proyecto</a>
 
   </div>
   <div class = "col-md-5">

@@ -4,7 +4,17 @@ namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
 use App\project;
+use App\strategicpartner;
 use App\User;
+use App\location;
+use App\campus;
+use App\category;
+use App\course;
+use App\major;
+use App\country;
+use App\state;
+use App\city;
+
 class ProjectController extends Controller
 {
     //
@@ -34,7 +44,32 @@ class ProjectController extends Controller
       Return: response
     */
     public function create(){
+      //Load strategicpartners
+      $strategicpartners = strategicpartner::all();
 
+      //Load users
+      $users = User::all();
+
+      //Load campuses
+      $campuses = campus::all();
+
+      //Load courses
+      $courses = course::all();
+
+      //Load majors
+      $majors = major::all();
+
+      //Load countries
+      $countries = country::all();
+
+      //Load states
+      $states = state::all();
+
+      //Load cities
+      $cities = city::all();
+
+      //Send the view with new info
+      return \View::make('crudproyectos.create', compact('strategicpartners', 'users', 'campuses', 'courses','majors','countries', 'states', 'cities'));
     }
 
     /*
