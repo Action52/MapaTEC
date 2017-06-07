@@ -78,7 +78,18 @@ class ProjectController extends Controller
       Return: response
     */
     public function store(Request $request){
+        $proyecto = new project;
+        $proyecto->name = $request->name;
+        $proyecto->description = $request->description;
+        $proyecto->status = $request->status;
+        //nota estoy tomando en proceso como 1 y terminado como 0
+        $proyecto->pdf = "en proceso";
+        //project::create($request->all());
 
+          $proyecto->save();
+
+          \Session::flash('message', 'Proyecto agreagado exitosamente.');
+      return \Redirect::to('crudproyectos');
     }
 
     /*

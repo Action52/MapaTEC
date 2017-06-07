@@ -15,7 +15,7 @@ Route::resource('crudproyectos', 'ProjectController');
 
 Route::get('/', function()
 {
-    return View::make('pages.home');
+    return View::make('welcome');
 });
 Route::get('about', function()
 {
