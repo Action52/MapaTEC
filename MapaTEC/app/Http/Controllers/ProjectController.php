@@ -28,7 +28,7 @@ class ProjectController extends Controller
       $projects = \DB::select(\DB::raw("SELECT projects.id AS id, projects.name AS name, projects.description AS description
         FROM projects, users, project_has_user
         WHERE users.id = '$user->id'
-        AND project_has_user.id = '$user->id'
+        AND project_has_user.user_id = '$user->id'
         AND projects.id = project_has_user.project_id"));
       //Obtener la info de cada proyecto
 
@@ -78,6 +78,7 @@ class ProjectController extends Controller
       Return: response
     */
     public function store(Request $request){
+        
         $proyecto = new project;
         $proyecto->name = $request->name;
         $proyecto->description = $request->description;
@@ -85,11 +86,18 @@ class ProjectController extends Controller
         //nota estoy tomando en proceso como 1 y terminado como 0
         $proyecto->pdf = "en proceso";
         //project::create($request->all());
-
           $proyecto->save();
 
+          $userInfo=\Auth::user()->id;
+          $idProyecto=$proyecto->id;
+          //Proyecto y sus strategic partners
+        
+          \DB::table('project_has_user')->insert(['project_id' => $idProyecto, 'user_id' => $userInfo,'owner'=> 't','role'=>'Lider']);
+        
+        
+
           \Session::flash('message', 'Proyecto agreagado exitosamente.');
-      return \Redirect::to('crudproyectos');
+        return \Redirect::to('crudproyectos');
     }
 
     /*
