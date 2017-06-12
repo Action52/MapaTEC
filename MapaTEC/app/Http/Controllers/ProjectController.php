@@ -78,7 +78,7 @@ class ProjectController extends Controller
       Return: response
     */
     public function store(Request $request){
-        
+
         $proyecto = new project;
         $proyecto->name = $request->name;
         $proyecto->description = $request->description;
@@ -91,10 +91,10 @@ class ProjectController extends Controller
           $userInfo=\Auth::user()->id;
           $idProyecto=$proyecto->id;
           //Proyecto y sus strategic partners
-        
+
           \DB::table('project_has_user')->insert(['project_id' => $idProyecto, 'user_id' => $userInfo,'owner'=> 't','role'=>'Lider']);
-        
-        
+
+
 
           \Session::flash('message', 'Proyecto agreagado exitosamente.');
         return \Redirect::to('crudproyectos');
@@ -212,7 +212,35 @@ class ProjectController extends Controller
       Return: response
     */
     public function edit($id){
+      //project
+      $project = project::find($id);
 
+      //Load strategicpartners
+      $strategicpartners = strategicpartner::all();
+
+      //Load users
+      $users = User::all();
+
+      //Load campuses
+      $campuses = campus::all();
+
+      //Load courses
+      $courses = course::all();
+
+      //Load majors
+      $majors = major::all();
+
+      //Load countries
+      $countries = country::all();
+
+      //Load states
+      $states = state::all();
+
+      //Load cities
+      $cities = city::all();
+
+      //Send the view with new info
+      return \View::make('crudproyectos.edit', compact('project', 'strategicpartners', 'users', 'campuses', 'courses','majors','countries', 'states', 'cities'));
     }
 
     /*
