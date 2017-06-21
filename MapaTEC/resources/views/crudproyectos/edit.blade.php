@@ -14,13 +14,14 @@
   <h1>Editar proyecto</h1>
   <!-- if there are creation errors, they will show here -->
   {{ Html::ul($errors->all()) }}
-  <form class="form-horizontal" role="form" method="POST" action="{{ url('crudproyectos') }}">
+
+  <form class="form-horizontal" role="form" method="PUT" action="{{ url('crudproyectos'.$project->id.'/edit') }}">
     {{ csrf_field() }}
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
         <label for="name" class="control-label">Nombre</label>
 
 
-            <input id="name" type="text" class="form-control" name="name" placeholder="{{ $project->name }}" required autofocus>
+            <input id="name" type="text" class="form-control" name="name" value="{{ $project->name }}" required autofocus>
 
             @if ($errors->has('name'))
                 <span class="help-block">
@@ -33,7 +34,7 @@
         <label for="description" class="control-label">Descripción breve</label>
 
 
-            <textarea id="description" type="text"  rows ="3" class="form-control" name="description" placeholder="{{ $project->description }}" required autofocus></textarea>
+            <textarea id="description" type="text"  rows ="3" class="form-control" name="description"  required autofocus>{{ $project->description }}</textarea>
 
             @if ($errors->has('description'))
                 <span class="help-block">

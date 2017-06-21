@@ -85,19 +85,29 @@ class ProjectController extends Controller
         $proyecto->status = $request->status;
         //nota estoy tomando en proceso como 1 y terminado como 0
         $proyecto->pdf = "en proceso";
-        //project::create($request->all());
-          $proyecto->save();
+        $proyecto->save();
 
-          $userInfo=\Auth::user()->id;
-          $idProyecto=$proyecto->id;
-          //Proyecto y sus strategic partners
+        $userInfo=\Auth::user()->id;
+        $idProyecto=$proyecto->id;
+        //Proyecto y sus strategic partners
 
-          \DB::table('project_has_user')->insert(['project_id' => $idProyecto, 'user_id' => $userInfo,'owner'=> 't','role'=>'Lider']);
+        \DB::table('project_has_user')->insert(['project_id' => $idProyecto, 'user_id' => $userInfo,'owner'=> 't','role'=>'Lider']);
 
+        if ($request->sp_id!=null) {
+          \DB::table('project_has_strategicpartner')->insert(['project_id' => $idProyecto, 'sp_id' => $request->sp_id]);
+        }
+        
+        if ($request->category_id!=null) {
+          \DB::table('project_has_category')->insert(['project_id' => $idProyecto, 'category_id' => $request->category_id]);
+        }
+        if ($request->campus!=null) {
+         \DB::table('project_has_campus')->insert(['project_id' => $idProyecto, 'campus_id' => $request->campus]);
+        }
 
+         
 
-          \Session::flash('message', 'Proyecto agreagado exitosamente.');
-        return \Redirect::to('crudproyectos');
+        \Session::flash('message', 'Proyecto agreagado exitosamente.');
+      return \Redirect::to('crudproyectos');
     }
 
     /*
@@ -249,7 +259,8 @@ class ProjectController extends Controller
       Return: response
     */
     public function update(Request $request, $id){
-
+      destroy($id);
+      store($request);
 
     }
 
