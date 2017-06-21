@@ -6,7 +6,7 @@
 
     </style>
 </head>
-<body class ="body-mapa">
+<body class ="body-mapatec">
 
 
     <!--Incluyo el sidebar en el layout principal-->
@@ -15,22 +15,10 @@
 
       <!-- Page Content -->
 
-      <div class="w3-container w3-teal">
-        @yield('cabecera')
-      </div>
+
+    @yield('content')
 
 
-
-
-  @yield('sidebar')
-
-
-@yield('mapa')
-
-
-    <footer>
-        @include('includes.footer')
-    </footer>
     <!--   Core JS Files   -->
   	<script src="{{ URL('js/jquery-3.1.0.min.js') }}" type="text/javascript"></script>
   	<script src="{{ URL('js/bootstrap.min.js') }}" type="text/javascript"></script>

@@ -96,7 +96,7 @@ class ProjectController extends Controller
         if ($request->sp_id!=null) {
           \DB::table('project_has_strategicpartner')->insert(['project_id' => $idProyecto, 'sp_id' => $request->sp_id]);
         }
-        
+
         if ($request->category_id!=null) {
           \DB::table('project_has_category')->insert(['project_id' => $idProyecto, 'category_id' => $request->category_id]);
         }
@@ -104,7 +104,7 @@ class ProjectController extends Controller
          \DB::table('project_has_campus')->insert(['project_id' => $idProyecto, 'campus_id' => $request->campus]);
         }
 
-         
+
 
         \Session::flash('message', 'Proyecto agreagado exitosamente.');
       return \Redirect::to('crudproyectos');

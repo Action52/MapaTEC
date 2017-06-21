@@ -12,7 +12,7 @@
 */
 //Para crud de proyectos
 Route::resource('crudproyectos', 'ProjectController');
-
+Route::resource('user', 'UserController');
 Route::get('/', function()
 {
     return View::make('welcome');

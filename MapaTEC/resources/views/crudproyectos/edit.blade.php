@@ -15,7 +15,7 @@
   <!-- if there are creation errors, they will show here -->
   {{ Html::ul($errors->all()) }}
 
-  <form class="form-horizontal" role="form" method="PUT" action="{{ url('crudproyectos'.$project->id.'/edit') }}">
+  {{ Form::model($project, array('route' => array('crudproyectos.update', $project->id), 'method' => 'PUT')) }}
     {{ csrf_field() }}
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
         <label for="name" class="control-label">Nombre</label>
@@ -182,7 +182,7 @@
     <button class = "btn btn-primary" name ="cancel" action ="{{ URL('crudproyectos') }}" value="Cancelar">Cancelar</button>
     <input id="sbmt" type="submit" class="btn btn-primary" name="submit" value="Editar" required autofocus>
 
-  </form>
+  {{ Form::close() }}
 </div>
 
 <div class ="col-md-offset-4 map-wrapper">
