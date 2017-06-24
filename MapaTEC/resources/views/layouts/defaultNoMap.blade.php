@@ -7,10 +7,14 @@
     </style>
 </head>
 <body class ="body-mapatec">
-
+  
 
     <!--Incluyo el sidebar en el layout principal-->
-    @include('includes.headerLogged')
+    @if(Auth::check())
+      @include('includes.headerLogged')
+    @else
+      @include('includes.headerNotLogged')
+    @endif
     <!--Texto del menu principal-->
 
       <!-- Page Content -->

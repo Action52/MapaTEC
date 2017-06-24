@@ -31,10 +31,6 @@
 
 @yield('mapa')
 
-
-    <footer>
-        @include('includes.footer')
-    </footer>
     <!--   Core JS Files   -->
   	<script src="{{ URL('js/jquery-3.1.0.min.js') }}" type="text/javascript"></script>
   	<script src="{{ URL('js/bootstrap.min.js') }}" type="text/javascript"></script>

@@ -76,17 +76,17 @@ class UserController extends Controller
       echo $request['name'];
 
       $rules = array(
-        'name' => 'required',
-        'email' => 'required|email',
+        'name' => 'required|max:255',
+        'email' => 'required|email|max:255|unique:users|is_itesm_mail',
         'password' => 'required',
-        'c_password' => 'required'
+        'c_password' => 'required|min:6|same:password'
       );
 
 
       $validator = Validator::make($request->all(), $rules);
 
       if($validator->fails()){
-        return Redirect::to('user/' . $id . '/edit')
+        return \Redirect::to('user/' . $id . '/edit')
           ->withErrors($validator)
           ->withInput();
       }

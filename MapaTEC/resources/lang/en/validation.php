@@ -85,6 +85,7 @@ return [
     'unique'               => 'The :attribute has already been taken.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'The :attribute format is invalid.',
+    'is_itesm_mail'        => 'El :attribute correo debe ser institucional del ITESM',
 
     /*
     |--------------------------------------------------------------------------

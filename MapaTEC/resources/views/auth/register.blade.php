@@ -118,8 +118,5 @@
 
 </div>
 
-    <footer class="row">
-        @include('includes.footer')
-    </footer>
 </body>
 </html>

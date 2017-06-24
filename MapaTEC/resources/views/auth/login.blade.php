@@ -1,101 +1,68 @@
-@extends('layouts.default')
+@extends('layouts.defaultNoMap')
 
-@section('cabecera')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+@section('content')
+  <div class="container">
+      <div class="row vertical-center">
+          <div class="col-md-8 col-md-offset-2">
+              <div class="panel panel-default">
+                  <div class="panel-heading">Login</div>
+                  <div class="panel-body">
+                      <form class="form-horizontal" role="form" method="POST" action="{{ route('login') }}">
+                          {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                          <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                              <label for="email" class="col-md-4 control-label">Correo institucional</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                              <div class="col-md-6">
+                                  <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
 
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                                  @if ($errors->has('email'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('email') }}</strong>
+                                      </span>
+                                  @endif
+                              </div>
+                          </div>
 
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
+                          <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                              <label for="password" class="col-md-4 control-label">Contraseña</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
+                              <div class="col-md-6">
+                                  <input id="password" type="password" class="form-control" name="password" required>
 
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                                  @if ($errors->has('password'))
+                                      <span class="help-block">
+                                          <strong>{{ $errors->first('password') }}</strong>
+                                      </span>
+                                  @endif
+                              </div>
+                          </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
+                          <div class="form-group">
+                              <div class="col-md-6 col-md-offset-4">
+                                  <div class="checkbox">
+                                      <label>
+                                          <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Recordarme
+                                      </label>
+                                  </div>
+                              </div>
+                          </div>
 
-                        <div class="form-group">
-                            <div class="col-md-8 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Login
-                                </button>
+                          <div class="form-group">
+                              <div class="col-md-8 col-md-offset-4">
+                                  <button type="submit" class="btn btn-primary">
+                                      Iniciar sesión
+                                  </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-@endsection
-@section('mapa')
-  @php
-    use App\campus;
-    //Retrieve all data from table
-    $query = 'SELECT ST_X(geom) AS lat, ST_Y(geom) AS lon FROM campuses';
-    $latlongs = DB::select($query);
-  @endphp
-
-  <div id="map"></div>
-  <script>
-  function initMap() {
-    // Create a map object and specify the DOM element for display.
-    var myPos = {lat: 19.432608, lng: -99.133209};
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 19.432608, lng: -99.133209},
-      scrollwheel: false,
-      zoom: 6
-    });
-    <?php
-      foreach ($latlongs as $latlong) {
-    ?>
-    var myPos = {lat: <?php echo $latlong->lat?>, lng: <?php echo $latlong->lon?>};
-      var marker = new google.maps.Marker({
-        position: myPos,
-        map: map,
-        title: 'Prueba!'
-      });
-    <?php } ?>
-  }
-
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxuma0ZigWEZMRX4xxLWMz3zIqxVYIykM&callback=initMap"async defer></script>
+                                  <a class="btn btn-link" href="{{ route('password.request') }}">
+                                      Olvidaste tu contraseña?
+                                  </a>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 @endsection
