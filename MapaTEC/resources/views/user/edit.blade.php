@@ -6,7 +6,7 @@
 
       <br>
       <div class ="row">
-      {{ Form::model($user, array('route' => array('user.update', $user->id), 'method' => 'PUT')) }}
+      {{ Form::model($user, array('route' => array('user.update', $user->id), 'method' => 'PUT', 'files' => true)) }}
         {{ csrf_field() }}
 
         <div class ="col-md-4">
@@ -17,7 +17,7 @@
               <label for="name" class="control-label">Nombre</label>
 
 
-                  <input id="name" type="text" class="form-control" name="name" placeholder="{{ $user->name }}" required autofocus>
+                  <input id="name" type="text" class="form-control" name="name" value="{{ $user->name }}" required autofocus>
 
                   @if ($errors->has('name'))
                       <span class="help-block">
@@ -29,7 +29,7 @@
           <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
               <label for="email" class="control-label">Email</label>
 
-                  <input id="email" type="text" class="form-control" name="email" placeholder="{{ $user->email }}" required autofocus>
+                  <input id="email" type="text" class="form-control" name="email" value="{{ $user->email }}" required autofocus>
 
                   @if ($errors->has('email'))
                       <span class="help-block">
@@ -62,6 +62,18 @@
                   @endif
           </div>
 
+          <!--Imagen de perfil-->
+          <div class="form-group{{ $errors->has('profile_img') ? ' has-error' : '' }}">
+              <label for="profile_img" class="control-label">Imagen de perfil</label>
+
+                  <input type = "file" name ="profile_img" id="profile_img">
+
+                  @if ($errors->has('profile_img'))
+                      <span class="help-block">
+                          <strong>{{ $errors->first('profile_img') }}</strong>
+                      </span>
+                  @endif
+          </div>
             <input id="sbmt" type="submit" class="btn btn-primary" name="submit" value="Actualizar" required autofocus>
         </div>
 

@@ -14,6 +14,7 @@ use App\major;
 use App\country;
 use App\state;
 use App\city;
+use \Input as Input;
 
 class UserController extends Controller
 {
@@ -74,12 +75,15 @@ class UserController extends Controller
       echo "Yes";
       echo $id;
       echo $request['name'];
+      echo $request->input('profile_img');
+      $user = User::find($id);
 
       $rules = array(
         'name' => 'required|max:255',
         'email' => 'required|email|max:255|unique:users|is_itesm_mail',
         'password' => 'required',
-        'c_password' => 'required|min:6|same:password'
+        'c_password' => 'required|min:6|same:password',
+        'profile_img' => 'required|max:4000' //maximo tamaño de imagen 4 megabytes
       );
 
 
@@ -91,7 +95,24 @@ class UserController extends Controller
           ->withInput();
       }
       else{
-        $user = User::find($id);
+        if($user->has_profile_pic == 1){ //el usuario ya tiene imagen de perfil
+          $user->has_profile_pic = 0; //Para que si ocurre un error se ponga la predeterminada
+          File::delete($user->id . '.png'); //borra la vieja
+        }
+        if($request->file('profile_img')->isValid()){ //revisar que la imagen sea valida
+          $destinationPath = 'img/profilePics';
+          $extension = $request->file('profile_img')->getClientOriginalExtension();
+          $fileName = $user->id . '.' . $extension;
+          $request->file('profile_img')->move($destinationPath, $fileName);
+
+          $user->has_profile_pic = 1;
+        }
+        else{
+          return \Redirect::to('user/' . $id . '/edit')
+            ->withErrors($validator)
+            ->withInput();
+        }
+
         $user->name = $request->input('name');
         $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));

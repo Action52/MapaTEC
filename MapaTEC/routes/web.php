@@ -12,7 +12,11 @@
 */
 //Para crud de proyectos
 Route::resource('crudproyectos', 'ProjectController');
+
 Route::resource('user', 'UserController');
+
+Route::get('deleteUser/{id}', 'UserController@destroy');
+
 Route::get('/', function()
 {
     return View::make('welcome');
