@@ -4,6 +4,10 @@
   background-color: rgb(  195,195,195);
 }
 
+.header-mapatec br{
+  margin: 2px 0;
+}
+
 .body-mapatec{
   background-image: url('../img/map-wallpaper.jpg');
 }
@@ -61,6 +65,7 @@ height: 100%;
 margin: 0;
 padding: 0;
 overflow: hidden;
+
 }
 .map-wrapper{
   margin-left:25%;

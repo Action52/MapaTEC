@@ -18,7 +18,7 @@ class ProjectsTableSeeder extends Seeder
         'pdf' => 'dropbox.com'
       ]);
       DB::table('projects')->insert([
-        'name' => 'Asesorias',
+        'name' => 'AsesoriasTEC',
         'description' => 'NOVUS 2016 Proyecto con el objetivo de desarrollar una interfaz de asesorias',
         'status' => 1,
         'pdf' => 'dropbox.com'
@@ -69,6 +69,11 @@ class ProjectsTableSeeder extends Seeder
 
       DB::table('project_has_category')->insert([
         'project_id' => 1,
+        'category_id' => 1,
+      ]);
+
+      DB::table('project_has_category')->insert([
+        'project_id' => 2,
         'category_id' => 1,
       ]);
 
