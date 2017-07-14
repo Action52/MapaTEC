@@ -20,7 +20,11 @@
       <!--Aqui va cada cajita con la info general de cada proyecto-->
       <div class ="col-md-3 project-box">
         <br>
-        <center><img src ="img/project-image.jpg" class ="project-image"></center>
+        @if($value->has_pic == 0 or 'Default')
+          <center>{{Html::image('../img/project-image.jpg', 'Proyecto', array('class' => 'project-image'))}}</center>
+        @else
+          <center>{{Html::image('../img/projects/' . $value->id . '.png' , 'Proyecto', array('class' => 'project-image'))}}</center>
+        @endif
         <h4><strong>{{ $value->name }}</strong></h4>
         <h6>
           {{ $value->description }}
@@ -43,9 +47,5 @@
     @endforeach
     </div>
 </div>
-
-    <footer>
-        @include('includes.footer')
-    </footer>
 </body>
 </html>

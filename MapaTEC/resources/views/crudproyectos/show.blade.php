@@ -10,139 +10,241 @@
 
 
 <!--Texto del menu principal-->
-<div class ="col-md-4  project-description-box">
-  <h1><strong>{{ $project->name }}</strong><h1>
-    <h4>{{ $project->description }}</h4>
-  <br>
-  <h3>Estatus </h3>
-    <h5>
-      @if($project->status == 1)
-        Terminado
-      @else
-        En progreso
+<div class ="col-md-4  project-description-box" style="background-image:url('../img/projects/{{ $project->id }}.png'">
+  <div style ="">
+    <div class ="project-title categories-project-2">
+      <hr />
+      <h1><strong>&emsp;{{ $project->name }}</strong><h1>
+      <h4>{{ $project->description }}</h4>
+      <hr />
+
+    </div>
+
+    <div class ="categories-project">
+      @if(empty($points))
+        <hr />
+        <h3>&emsp;Proyecto desarrollado en </h3>
+        <hr />
+        <h6>
+          @foreach($points as $key => $value)
+            {{ $value->lat }} , {{ $value->lon }}
+          @endforeach
+        </h6>
+      @endif
+    </div>
+
+    <div class ="categories-project">
+      <hr />
+      <h3>&emsp;Estatus </h3>
+      <hr />
+        <h5>
+          @if($project->status == 1)
+            Terminado
+          @else
+            En progreso
+          @endif
+
+          <table class ="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <td>Semestre inicio</td>
+                <td>Año inicio</td>
+                <td>Semestre fin</td>
+                <td>Año fin</td>
+
+              <tr>
+            </thead>
+            <tbody>
+              @foreach($times as $key => $value)
+                <tr>
+
+                  <td>{{ $value->sem_start }}</td>
+                  <td>{{ $value->year_start }}</td>
+                  <td>{{ $value->sem_end }}</td>
+                  <td>{{ $value->year_end }}</td>
+
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+
+        </h5>
+        <br />
+    </div>
+
+    <div class ="categories-project">
+      @if(!empty($strategicpartners))
+      <hr />
+      <h3>&emsp;Socios Estratégicos</h3>
+      <hr />
+      <h5>
+        <table class ="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <td>Socio</td>
+              <td>Contacto</td>
+
+            <tr>
+          </thead>
+          <tbody>
+            @foreach($strategicpartners as $key => $value)
+              <tr>
+                <td>{{ $value->name }}</td>
+                <td>{{ $value->email }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </h5>
+      <br />
+      @endif
+    </div>
+
+    <div class ="categories-project">
+      @if(!empty($users))
+      <hr />
+      <h3>&emsp;Usuarios participantes</h3>
+      <hr />
+      <h5>
+        <table class ="table table-striped table-bordered">
+          <thead>
+            <tr>
+              <td>Usuario</td>
+              <td>Contacto</td>
+              <td>Dueño</td>
+              <td>Rol</td>
+
+            <tr>
+          </thead>
+          <tbody>
+            @foreach($users as $key => $value)
+              <tr>
+                <td>{{ $value->name }} {{ $value->lastname }}</td>
+                <td>{{ $value->email }}</td>
+                <td>
+                  @if($value->owner == 1)
+                  X
+                  @endif
+                </td>
+                <td>{{ $value->role }}</td>
+              </tr>
+            @endforeach
+          </tbody>
+        </table>
+      </h5>
+      <br />
+    @endif
+    </div>
+
+    <div class ="row">
+      @if(!empty($campuses))
+      <div class ="col-md-6">
+        <div class ="categories-project">
+          <hr />
+          <h3>&emsp;Campus involucrados</h3>
+          <hr />
+          <h5>
+            <ul>
+            @foreach($campuses as $key => $value)
+              <li>{{ $value->name }}</li>
+            @endforeach
+            </ul>
+          </h5>
+          <br>
+        </div>
+      </div>
       @endif
 
-      <table class ="table table-striped table-bordered">
-        <thead>
-          <tr>
-            <td>Semestre inicio</td>
-            <td>Año inicio</td>
-            <td>Semestre fin</td>
-            <td>Año fin</td>
 
-          <tr>
-        </thead>
-        <tbody>
-          @foreach($times as $key => $value)
-            <tr>
+      <div class ="col-md-6">
+        <div class ="categories-project">
+          @if(!empty($majors))
+          <hr />
+          <h3>&emsp;Carreras relacionadas</h3>
+          <hr />
+          <h5>
+            <ul>
+            @foreach($majors as $key => $value)
+              <li>{{ $value->aka }}</li>
+            @endforeach
+            </ul>
+          </h5>
+          <br>
+          @endif
+        </div>
+      </div>
+    </div>
 
-              <td>{{ $value->sem_start }}</td>
-              <td>{{ $value->year_start }}</td>
-              <td>{{ $value->sem_end }}</td>
-              <td>{{ $value->year_end }}</td>
+    <br />
 
-            </tr>
-          @endforeach
-        </tbody>
-      </table>
-
-    </h5>
-  <br>
-  <h3>Socios Estratégicos</h3>
-  <h5>
-    @if(empty($strategicpartners))
-      No existen socios estratégicos relacionados a este proyecto.
-    @else
-    <table class ="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <td>Socio</td>
-          <td>Contacto</td>
-
-        <tr>
-      </thead>
-      <tbody>
-        @foreach($strategicpartners as $key => $value)
-          <tr>
-            <td>{{ $value->name }}</td>
-            <td>{{ $value->email }}</td>
-          </tr>
+    <div class ="categories-project">
+      @if(!empty($courses))
+      <hr />
+      <h3>&emsp;Cursos de impacto</h3>
+      <hr />
+      <h5>
+        <ul>
+        @foreach($courses as $key => $value)
+          <li>{{ $value->code }} {{ $value->name }}</li>
         @endforeach
-      </tbody>
-    </table>
-  @endif
-  </h5>
-  <br>
-  <h3>Usuarios participantes</h3>
-  <h5>
-    @if(empty($users))
-      No existen usuarios relacionados con el proyecto.
-    @else
-    <table class ="table table-striped table-bordered">
-      <thead>
-        <tr>
-          <td>Usuario</td>
-          <td>Contacto</td>
-          <td>Owner</td>
-          <td>Role</td>
+        </ul>
+      </h5>
+      <br />
+      @endif
+    </div>
 
-        <tr>
-      </thead>
-      <tbody>
-        @foreach($users as $key => $value)
-          <tr>
-            <td>{{ $value->name }} {{ $value->lastname }}</td>
-            <td>{{ $value->email }}</td>
-            <td>
-              @if($value->owner == 1)
-              X
-              @endif
-            </td>
-            <td>{{ $value->role }}</td>
-          </tr>
+    <div class ="categories-project">
+      @if(!empty($categories))
+      <hr/>
+      <h3>&emsp;Categorías</h3>
+      <hr />
+      <h5>
+        @foreach($categories as $key => $value)
+          #{{ $value->name }}
         @endforeach
-      </tbody>
-    </table>
-  @endif
-  </h5>
-  <br>
-  <h3>Campus involucrados</h3>
-  <h5>
-    <ul>
-    @foreach($campuses as $key => $value)
-      <li>{{ $value->name }}</li>
-    @endforeach
-    </ul>
-  </h5>
-  <br>
-  <h3>Carreras relacionadas</h3>
-  <h5>
-    <ul>
-    @foreach($majors as $key => $value)
-      <li>{{ $value->aka }}</li>
-    @endforeach
-    </ul>
-  </h5>
-  <br>
-  <h3>Cursos de impacto</h3>
-  <h5>
-    <ul>
-    @foreach($courses as $key => $value)
-      <li>{{ $value->code }} {{ $value->name }}</li>
-    @endforeach
-    </ul>
-  </h5>
-  <h3>Categorías</h3>
-  <div class ="categories-project">
-    <h5>
-      @foreach($categories as $key => $value)
-        #{{ $value->name }}
-      @endforeach
-    </h5>
+      </h5>
+      <br />
+    </div>
+    <br>
+    @endif
   </div>
-  <br>
-</div>
 
+  <div class ="row">
+    @if($project->has_pic == 1)
+    <div class ="col-md-6">
+      <div class ="categories-project">
+        <hr />
+        <h4>Imagen de proyecto</h4>
+        <hr />
+        {{ Html::image('img/projects/' . $project->id . '.png', 'Proyecto', array('class' => 'show_project_img')) }}
+      </div>
+    </div>
+    @endif
+    <div class ="col-md-6">
+      <div class ="categories-project">
+        <div class = "row">
+          <div class ="col-sm-8">
+            <hr />
+            <h4>Más información</h4>
+            <hr />
+          </div>
+          <div class ="col-sm-4">
+            <br />
+            <br />
+            {{ Html::image('img/download.ico', 'PDF de proyecto', array('class' => 'show_project_img', 'onclick' => '')) }}
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <br />
+  <br />
+  <br />
+
+</div>
 <div class ="col-md-offset-4 map-wrapper">
 
   <div id="map"></div>
@@ -150,181 +252,208 @@
     <script>
     function initMap() {
       var estilo = [
-        {
-            "featureType": "water",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#e9e9e9"
-                },
-                {
-                    "lightness": 17
-                }
-            ]
-        },
-        {
-            "featureType": "landscape",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#f5f5f5"
-                },
-                {
-                    "lightness": 20
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "geometry.fill",
-            "stylers": [
-                {
-                    "color": "#ffffff"
-                },
-                {
-                    "lightness": 17
-                }
-            ]
-        },
-        {
-            "featureType": "road.highway",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#ffffff"
-                },
-                {
-                    "lightness": 29
-                },
-                {
-                    "weight": 0.2
-                }
-            ]
-        },
-        {
-            "featureType": "road.arterial",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#ffffff"
-                },
-                {
-                    "lightness": 18
-                }
-            ]
-        },
-        {
-            "featureType": "road.local",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#ffffff"
-                },
-                {
-                    "lightness": 16
-                }
-            ]
-        },
-        {
-            "featureType": "poi",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#f5f5f5"
-                },
-                {
-                    "lightness": 21
-                }
-            ]
-        },
-        {
-            "featureType": "poi.park",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#dedede"
-                },
-                {
-                    "lightness": 21
-                }
-            ]
-        },
-        {
-            "elementType": "labels.text.stroke",
-            "stylers": [
-                {
-                    "visibility": "on"
-                },
-                {
-                    "color": "#ffffff"
-                },
-                {
-                    "lightness": 16
-                }
-            ]
-        },
-        {
-            "elementType": "labels.text.fill",
-            "stylers": [
-                {
-                    "saturation": 36
-                },
-                {
-                    "color": "#333333"
-                },
-                {
-                    "lightness": 40
-                }
-            ]
-        },
-        {
-            "elementType": "labels.icon",
-            "stylers": [
-                {
-                    "visibility": "off"
-                }
-            ]
-        },
-        {
-            "featureType": "transit",
-            "elementType": "geometry",
-            "stylers": [
-                {
-                    "color": "#f2f2f2"
-                },
-                {
-                    "lightness": 19
-                }
-            ]
-        },
-        {
-            "featureType": "administrative",
-            "elementType": "geometry.fill",
-            "stylers": [
-                {
-                    "color": "#fefefe"
-                },
-                {
-                    "lightness": 20
-                }
-            ]
-        },
-        {
-            "featureType": "administrative",
-            "elementType": "geometry.stroke",
-            "stylers": [
-                {
-                    "color": "#fefefe"
-                },
-                {
-                    "lightness": 17
-                },
-                {
-                    "weight": 1.2
-                }
-            ]
-        }
-    ];
+    {
+        "featureType": "all",
+        "elementType": "labels.text",
+        "stylers": [
+            {
+                "weight": "4.04"
+            }
+        ]
+    },
+    {
+        "featureType": "administrative",
+        "elementType": "labels.text.fill",
+        "stylers": [
+            {
+                "color": "#444444"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#f2f2f2"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.man_made",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            },
+            {
+                "color": "#4b55ae"
+            }
+        ]
+    },
+    {
+        "featureType": "landscape.natural",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#84c0b9"
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.attraction",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#3569ad"
+            },
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            },
+            {
+                "color": "#78b69a"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.park",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "poi.place_of_worship",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "off"
+            },
+            {
+                "saturation": "0"
+            },
+            {
+                "lightness": "0"
+            },
+            {
+                "gamma": "1.96"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "all",
+        "stylers": [
+            {
+                "saturation": "-100"
+            },
+            {
+                "lightness": "18"
+            },
+            {
+                "gamma": "0.69"
+            }
+        ]
+    },
+    {
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "color": "#a7b7c6"
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "simplified"
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "elementType": "labels.icon",
+        "stylers": [
+            {
+                "visibility": "off"
+            }
+        ]
+    },
+    {
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "off"
+            },
+            {
+                "color": "#91b5ff"
+            },
+            {
+                "saturation": "12"
+            },
+            {
+                "lightness": "-51"
+            },
+            {
+                "gamma": "4.02"
+            }
+        ]
+    },
+    {
+        "featureType": "transit.station",
+        "elementType": "all",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "hue": "#0010ff"
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "color": "#227ca2"
+            },
+            {
+                "visibility": "on"
+            }
+        ]
+    }
+  ];
       // Create a map object and specify the DOM element for display.
       var myPos = {lat: 19.432608, lng: -99.133209 };
       var map = new google.maps.Map(document.getElementById('map'), {
@@ -340,7 +469,7 @@
         var marker = new google.maps.Marker({
           position: myPos,
           map: map,
-          
+
           title: 'Prueba!'
         });
 

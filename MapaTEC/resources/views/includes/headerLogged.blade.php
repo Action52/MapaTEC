@@ -8,7 +8,7 @@
     <div class ="row" style="">
       <br />
       <form class="form-horizontal" role="form" method="GET" action="{{ url('search') }}">
-        <input type ="text" class ="form-control searchInput" name ="rawsearch" id ="rawsearch" placeholder="Buscar por nombre, descripción, o categoría" style=""/>
+        <input type ="text" class ="form-control searchInput" name ="busqueda" id ="busqueda" placeholder="Buscar por nombre, descripción, o categoría" style=""/>
       </form>
     </div>
   </div>

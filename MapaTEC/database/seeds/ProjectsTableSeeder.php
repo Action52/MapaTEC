@@ -15,25 +15,28 @@ class ProjectsTableSeeder extends Seeder
         'name' => 'MapaTEC',
         'description' => 'NOVUS 2016 Proyecto con el objetivo de desarrollar una página web con mapa.',
         'status' => 1,
-        'pdf' => 'dropbox.com'
+        'pdf' => 'dropbox.com',
+        'has_pic' => 0
       ]);
       DB::table('projects')->insert([
         'name' => 'AsesoriasTEC',
         'description' => 'NOVUS 2016 Proyecto con el objetivo de desarrollar una interfaz de asesorias',
         'status' => 1,
-        'pdf' => 'dropbox.com'
+        'pdf' => 'dropbox.com',
+        'has_pic' => 0
       ]);
       DB::table('projects')->insert([
         'name' => 'Taller GameMaker',
         'description' => 'Taller de programación de videojuegos impartido cada semestre',
         'status' => 1,
-        'pdf' => 'dropbox.com'
+        'pdf' => 'dropbox.com',
+        'has_pic' => 0
       ]);
 
       //Seeds para tablas cruce
       DB::table('project_has_strategicpartner')->insert([
         'project_id' => 1,
-        'sp_id' => 1,
+        'sp_id' => 1
       ]);
 
       DB::table('project_has_user')->insert([
@@ -70,6 +73,11 @@ class ProjectsTableSeeder extends Seeder
       DB::table('project_has_category')->insert([
         'project_id' => 1,
         'category_id' => 1,
+      ]);
+
+      DB::table('project_has_category')->insert([
+        'project_id' => 3,
+        'category_id' => 4,
       ]);
 
       DB::table('project_has_category')->insert([

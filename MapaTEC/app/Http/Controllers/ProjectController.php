@@ -25,7 +25,7 @@ class ProjectController extends Controller
       $id = $user->id;
       //Seleccionar los proyectos del usuario
 
-      $projects = \DB::select(\DB::raw("SELECT projects.id AS id, projects.name AS name, projects.description AS description
+      $projects = \DB::select(\DB::raw("SELECT projects.id AS id, projects.name AS name, projects.description AS description, projects.has_pic AS has_pic
         FROM projects, users, project_has_user
         WHERE users.id = '$user->id'
         AND project_has_user.user_id = '$user->id'
@@ -85,7 +85,7 @@ class ProjectController extends Controller
         $proyecto->status = $request->status;
         //nota estoy tomando en proceso como 1 y terminado como 0
         $proyecto->pdf = "en proceso";
-        $proyecto->save();
+
 
         $userInfo=\Auth::user()->id;
         $idProyecto=$proyecto->id;
@@ -104,6 +104,24 @@ class ProjectController extends Controller
          \DB::table('project_has_campus')->insert(['project_id' => $idProyecto, 'campus_id' => $request->campus]);
         }
 
+        if($proyecto->has_pic == 1){ //el usuario ya tiene imagen de perfil
+          $proyecto->has_pic = 0; //Para que si ocurre un error se ponga la predeterminada
+          File::delete($proyecto->id . '.png'); //borra la vieja
+        }
+        if($request->file('imagen')->isValid()){ //revisar que la imagen sea valida
+          $destinationPath = 'img/projects';
+          $extension = $request->file('imagen')->getClientOriginalExtension();
+          $fileName = $proyecto->id . '.' . $extension;
+          $request->file('imagen')->move($destinationPath, $fileName);
+
+          $proyecto->has_pic = 1;
+          $proyecto->save();
+        }
+        else{
+          return \Redirect::to('crudproyectos/create')
+            ->withErrors($validator)
+            ->withInput();
+        }
 
 
         \Session::flash('message', 'Proyecto agreagado exitosamente.');
@@ -119,7 +137,7 @@ class ProjectController extends Controller
       //Dado que hay muchas relaciones, hay que hacer varias queries
 
       //Info del proyecto
-      $project = project::find($id)->first();
+      $project = project::find($id);
 
       //Proyecto y sus strategic partners
       $strategicpartners = \DB::select(

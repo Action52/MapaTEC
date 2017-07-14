@@ -23,7 +23,7 @@ class SearchEngineController extends Controller
   */
   public function search(Request $request){
     //Assure string is pure
-    $searchString = stripslashes($request->input('rawsearch'));
+    $searchString = stripslashes($request->input('busqueda'));
 
     //Perform the search
     $finalSearchString = '%' . $searchString . '%';
@@ -40,9 +40,8 @@ class SearchEngineController extends Controller
         )
     );
 
-
-
-    return \View::make('results', compact('projects'));
+    
+    return \View::make('results', compact('projects', 'searchString'));
   }
 
 

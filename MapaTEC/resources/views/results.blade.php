@@ -2,23 +2,25 @@
 
 @section('sidebar')
   <div class ="col-md-4">
+    <h2>Resultados de búsqueda para: </h2>
+    <h4>{{ $searchString }}</h4>
     @foreach ($projects as $key => $value)
       <hr />
       <div class ="row">
         <div class ="col-sm-1">
 
         </div>
-        <div class ="col-sm-10">
+        <div class ="col-sm-10" onClick ="">
           <strong>{{ $value->name }}</strong>
           <p>
             <h6>{{ $value->description }}</h6>
           </p>
         </div>
         <div class ="col-sm-1">
-          <h4>&#10145;</h4>
+          <h4><a href ="{{ URL::to('crudproyectos/' . $value->id) }}">&#10145;</a></h4>
         </div>
       </div>
-      <hr />
+
     @endforeach
   </div>
 @endsection
@@ -236,20 +238,18 @@
         ]
     }
   ];
-      var myPos = {lat: 19.432608, lng: -99.133209 };
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 19.432608, lng: -99.133209},
-        styles:estilo,
-        scrollwheel: false,
-        zoom: 6
 
-      });
-
-
-    }
+  // Create a map object and specify the DOM element for display.
+  var myPos = {lat: 19.432608, lng: -99.133209 };
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: 19.432608, lng: -99.133209},
+    scrollwheel: false,
+    styles:estilo,
+    zoom: 6
+  });
 
 
-
+}
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxuma0ZigWEZMRX4xxLWMz3zIqxVYIykM&callback=initMap"async defer></script>
 @endsection

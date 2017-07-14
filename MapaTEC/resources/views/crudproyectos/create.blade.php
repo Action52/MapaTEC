@@ -14,7 +14,7 @@
   <h1>Nuevo proyecto</h1>
   <!-- if there are creation errors, they will show here -->
   {{ Html::ul($errors->all()) }}
-  <form class="form-horizontal" role="form" method="POST" action="{{ url('crudproyectos') }}">
+  <form class="form-horizontal" role="form" method="POST" action="{{ url('crudproyectos') }}" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
         <label for="name" class="control-label">Nombre</label>
@@ -38,6 +38,19 @@
             @if ($errors->has('description'))
                 <span class="help-block">
                     <strong>{{ $errors->first('description') }}</strong>
+                </span>
+            @endif
+    </div>
+
+    <div class="form-group{{ $errors->has('imagen') ? ' has-error' : '' }}">
+        <label for="imagen" class="control-label">Suba una imagen que identifique a su proyecto</label>
+
+
+            <input id="imagen" type="file" class="form-control" name="imagen" value="{{ old('imagen') }}" required autofocus></textarea>
+
+            @if ($errors->has('imagen'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('imagen') }}</strong>
                 </span>
             @endif
     </div>
