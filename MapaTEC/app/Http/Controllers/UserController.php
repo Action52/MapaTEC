@@ -48,7 +48,28 @@ class UserController extends Controller
       Return: response
     */
     public function show($id){
+      $user = User::find($id);
 
+      $projects_user = \DB::select(
+        \DB::raw("SELECT projects.id AS project_id, projects.name AS project_name, projects.has_pic AS has_pic
+          FROM projects, users, project_has_user
+          WHERE projects.id = project_has_user.project_id AND
+                users.id = project_has_user.user_id AND
+                users.id = '$id'
+        ")
+      );
+
+      $categories_user = \DB::select(
+        \DB::raw("SELECT categories.id AS id, categories.name AS name
+          FROM categories, users, user_has_category
+          WHERE categories.id = user_has_category.category_id AND
+                users.id = user_has_category.user_id AND
+                users.id = '$id'
+        ")
+      );
+
+      //Send the view with new info
+      return \View::make('user.show',compact('user','projects_user', 'categories_user'));
     }
 
     /*
@@ -80,7 +101,6 @@ class UserController extends Controller
 
       $rules = array(
         'name' => 'required|max:255',
-        'email' => 'required|email|max:255|unique:users|is_itesm_mail',
         'password' => 'required',
         'c_password' => 'required|min:6|same:password',
         'profile_img' => 'required|max:4000' //maximo tamaño de imagen 4 megabytes
@@ -97,14 +117,14 @@ class UserController extends Controller
       else{
         if($user->has_profile_pic == 1){ //el usuario ya tiene imagen de perfil
           $user->has_profile_pic = 0; //Para que si ocurre un error se ponga la predeterminada
-          File::delete($user->id . '.png'); //borra la vieja
+          \File::delete('img/profilePics/'.$user->id . '.png'); //borra la vieja
         }
         if($request->file('profile_img')->isValid()){ //revisar que la imagen sea valida
           $destinationPath = 'img/profilePics';
           $extension = $request->file('profile_img')->getClientOriginalExtension();
           $fileName = $user->id . '.' . $extension;
           $request->file('profile_img')->move($destinationPath, $fileName);
-
+          //\Image::make($destinationPath . $fileName)->resize(200,200)->save($destinationPath . $fileName);
           $user->has_profile_pic = 1;
         }
         else{
@@ -114,7 +134,6 @@ class UserController extends Controller
         }
 
         $user->name = $request->input('name');
-        $user->email = $request->input('email');
         $user->password = bcrypt($request->input('password'));
         $user->save(); //Estos son metodos del MODELO
 

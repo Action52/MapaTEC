@@ -1,4 +1,5 @@
 <div class ="row header-mapatec">
+  <br />
   <div class ="col-md-2">
     <!--Aqui va el logo-->
     <a href="{{ URL('home') }}">
@@ -7,6 +8,7 @@
   <div class ="col-md-5">
     <div class ="row" style="">
       <br />
+      <br />
       <form class="form-horizontal" role="form" method="GET" action="{{ url('search') }}">
         <input type ="text" class ="form-control searchInput" name ="busqueda" id ="busqueda" placeholder="Buscar por nombre, descripción, o categoría" style=""/>
       </form>
@@ -14,7 +16,6 @@
   </div>
   <div class ="col-md-5">
     <div class ="row">
-
       <div class ="col-sm-3">
 
       </div>
@@ -26,13 +27,16 @@
                 {{ Auth::user()->name }}
 
               @if(Auth::user()->has_profile_pic == 1)
-                <a href="{{ URL::to('crudproyectos') }}">{{ Html::image('../img/profilePics/' . Auth::user()->id . '.png' , 'Perfil', array('height' => '50', 'width' => '50', 'class' => 'profile-pic')) }}</a>
+                <a href="{{ URL::to('user/' . Auth::user()->id) }}">{{ Html::image('../img/profilePics/' . Auth::user()->id . '.png' , 'Perfil', array('height' => '50', 'width' => '50', 'class' => 'profile-pic')) }}</a>
               @else
-                <a href="{{ URL::to('crudproyectos') }}">{{ Html::image('../img/profilePics/default.png' , 'Perfil', array('height' => '50', 'width' => '50', 'class' => 'profile-pic')) }}</a>
+                <a href="{{ URL::to('user/' . Auth::user()->id) }}">{{ Html::image('../img/profilePics/default.png' , 'Perfil', array('height' => '50', 'width' => '50', 'class' => 'profile-pic')) }}</a>
               @endif
 
                 <span class="arrow">&#9660;</span>
                 <ul class="sub-menu">
+                  <li>
+                    <a href="{{ URL::to('crudproyectos') }}">Mis proyectos</a>
+                  </li>
                   <li>
                     <a href="crudproyectos/create">Crear proyecto</a>
                   </li>

@@ -26,5 +26,31 @@ class CategoriesTableSeeder extends Seeder
       DB::table('categories')->insert([
         'name' => 'Derecho'
       ]);
+
+
+      DB::table('user_has_category')->insert([
+        'user_id' => 1,
+        'category_id' => 1,
+      ]);
+
+      DB::table('user_has_category')->insert([
+        'user_id' => 1,
+        'category_id' => 2,
+      ]);
+
+      DB::table('user_has_category')->insert([
+        'user_id' => 2,
+        'category_id' => 3,
+      ]);
+
+      DB::table('user_has_category')->insert([
+        'user_id' => 2,
+        'category_id' => 1,
+      ]);
+
+      DB::table('user_has_category')->insert([
+        'user_id' => 2,
+        'category_id' => 4,
+      ]);
     }
 }

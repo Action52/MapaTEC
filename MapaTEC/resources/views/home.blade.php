@@ -2,64 +2,7 @@
 
 
 @section('sidebar')
-  <div class ="col-md-4">
-      <div class="row search">
-        <br />
-        <div class ="col-sm-1">
-        </div>
-        <div class ="col-sm-10">
-          <form class="form-horizontal" role="form" method="POST" action="">
-            <input type ="text" class ="form-control searchInput" name ="categories" id ="categories" placeholder="Buscar por nombre, descripción, categoría..."/>
-          </form>
-        </div>
-        <div class ="col-sm-1">
-        </div>
-      </div>
 
-      <div class ="row">
-        Campus:
-        <div id ="campusesContSelect" class ="dragAndDrop">
-          @php
-            use App\campus;
-            $campuses = campus::all();
-          @endphp
-          @foreach ($campuses as $key => $value)
-            <input type ="button" class ="btn btn-default" value ="{{ $value->name }}" id ="to_select">
-          @endforeach
-        </div>
-      </div>
-      <div class ="row">
-        <div id ="campusesContUser" class ="dragAndDrop">
-          <br />
-          <br />
-          <br />
-          <br />
-        </div>
-      </div>
-      <br />
-      <div class ="col-md-6">
-        <strong>Desde</strong>
-        <br />
-        <input type ="date" class ="" id ="inicio" name ="inicio"/>
-      </div>
-      <div class ="col-md-6">
-        <strong>Hasta</strong>
-        <br />
-        <input type ="date" class ="" id ="fin" name ="fin"/>
-      </div>
-
-      <div class ="row">
-        <br />
-        <br />
-        <br />
-        <input type ="submit" class ="btn btn-primary" name ="submit" id ="submit" value ="Buscar"/>
-      </div>
-      </form>
-      <script src='https://cdnjs.cloudflare.com/ajax/libs/dragula/3.7.2/dragula.min.js'>
-          dragula([document.getElementById(campusesContSelect), document.getElementById(campusesContUser)]);
-      </script>
-
-  </div>
 
 @endsection
 

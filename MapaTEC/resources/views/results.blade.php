@@ -1,27 +1,31 @@
 @extends('layouts.default')
 
 @section('sidebar')
-  <div class ="col-md-4">
-    <h2>Resultados de búsqueda para: </h2>
-    <h4>{{ $searchString }}</h4>
-    @foreach ($projects as $key => $value)
-      <hr />
-      <div class ="row">
-        <div class ="col-sm-1">
+  <div class ="col-md-4 project-description-box">
+    @if(!empty($projects))
+      <h2>Resultados de búsqueda para: </h2>
+      <h4>{{ $searchString }}</h4>
+      @foreach ($projects as $key => $value)
+        <hr />
+        <div class ="row">
+          <div class ="col-sm-1">
 
+          </div>
+          <div class ="col-sm-10" onClick ="">
+            <h5><strong>{{ $value->name }}</strong></h5>
+            <p>
+              <h6>{{ $value->description }}</h6>
+            </p>
+          </div>
+          <div class ="col-sm-1">
+            <h4><a href ="{{ URL::to('crudproyectos/' . $value->id) }}">&#10145;</a></h4>
+          </div>
         </div>
-        <div class ="col-sm-10" onClick ="">
-          <strong>{{ $value->name }}</strong>
-          <p>
-            <h6>{{ $value->description }}</h6>
-          </p>
-        </div>
-        <div class ="col-sm-1">
-          <h4><a href ="{{ URL::to('crudproyectos/' . $value->id) }}">&#10145;</a></h4>
-        </div>
-      </div>
-
-    @endforeach
+      @endforeach
+    @else
+      <h2>Lo sentimos, no encontramos ningún proyecto relacionado con: </h2>
+      <h4>{{ $searchString }}</h4>
+    @endif
   </div>
 @endsection
 

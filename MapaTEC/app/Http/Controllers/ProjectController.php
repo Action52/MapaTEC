@@ -153,7 +153,7 @@ class ProjectController extends Controller
       //Proyecto y usuarios
       $users = \DB::select(
         \DB::raw(
-          "SELECT users.name AS name, users.lastname AS lastname, users.email as email, project_has_user.owner AS owner, project_has_user.role AS role
+          "SELECT users.id AS id, users.name AS name, users.lastname AS lastname, users.email as email, users.has_profile_pic AS has_profile_pic,project_has_user.owner AS owner, project_has_user.role AS role
           FROM users, project_has_user, projects
           WHERE users.id = project_has_user.user_id AND
             project_has_user.project_id = '$id' AND

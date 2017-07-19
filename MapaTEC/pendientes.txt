@@ -1,0 +1,21 @@
+Búsqueda:
+LEGASPI  -Falta la búsqueda avanzada completa (puede hacerse en una vista nueva o que salga predeterminada desde la vista home)
+LEGASPI  -Para ambas búsquedas, falta editar el javascript que despliegue los marcadores de cada proyecto que coincida con la búsqueda.
+
+CRUD Proyectos
+LEGASPI  -Falta conectar completamente (con cada tabla relacional) el create y el edit.
+  -Falta agregar la opción de subir el PDF de proyecto en el create.
+  -Para borrar un proyecto agregar un mensaje de confirmación.
+
+CRUD usuario
+  -Falta hacer cambios en las opciones y vista de editar usuario
+  -Falta hacer casi al 100% la vista de perfil del usuario (la actual no me acaba de convencer). (Tiene que tener un pequeño formulario de contacto)
+  -Para borrar la cuenta agregar un mensaje de confirmación.
+
+Landing page y otras vistas
+  -Falta hacer la landing page al 100%.
+  -Falta editar de acuerdo a la temática de la página la vista de login.
+LEGASPI  -Falta enchular el headerNotLogged en un 100% casi, el headerLogged en un 20% aprox.
+  -Cambios generales al css.
+  -Página de términos y condiciones
+  -Otras vistas

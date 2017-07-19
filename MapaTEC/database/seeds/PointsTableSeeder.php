@@ -15,7 +15,7 @@ class PointsTableSeeder extends Seeder
       DB::insert("INSERT INTO points (name, geom)
         VALUES (
           'Punto',
-          ST_GeomFromText('POINT(27.43 -5.09)',4326) )
+          ST_GeomFromText('POINT(18.9887533 -98.2054531)',4326) )
       ");
       DB::insert("INSERT INTO points (name, geom)
         VALUES (

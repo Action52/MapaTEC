@@ -6,8 +6,11 @@
 
     </style>
 </head>
-<body class ="body-mapa">
 
+<body class ="body-mapa">
+  @if(!Auth::check())
+    {{ Redirect::to('welcome') }}
+  @endif
 
     <!--Incluyo el sidebar en el layout principal-->
     @if(Auth::check())

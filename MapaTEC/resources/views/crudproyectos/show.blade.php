@@ -11,7 +11,7 @@
 
 <!--Texto del menu principal-->
 <div class ="col-md-4  project-description-box" style="background-image:url('../img/projects/{{ $project->id }}.png'">
-  <div style ="">
+  <div class ="">
     <div class ="project-title categories-project-2">
       <hr />
       <h1><strong>&emsp;{{ $project->name }}</strong><h1>
@@ -31,6 +31,24 @@
           @endforeach
         </h6>
       @endif
+    </div>
+
+    <div class ="categories-project">
+      @if(!empty($users))
+      <hr />
+      <h3>&emsp;Usuarios participantes</h3>
+      <hr />
+      <h5>
+            @foreach($users as $key => $value)
+                @if($value->has_profile_pic == 1)
+                  &emsp;<a href="{{ URL::to('user/' . $value->id) }}">{{ Html::image('/img/profilePics/' . $value->id . '.png', $value->name . ' ' . $value->lastname, array('class' => 'profile-pic profile-pic-shadow')) }} </a>
+                @else
+                  &emsp;<a href="{{ URL::to('user/' . $value->id) }}">{{ Html::image('/img/profilePics/default.png', $value->name . ' ' . $value->lastname, array('class' => 'profile-pic profile-pic-shadow'))}} </a>
+                @endif
+            @endforeach
+      </h5>
+      <br />
+    @endif
     </div>
 
     <div class ="categories-project">
@@ -98,42 +116,6 @@
       </h5>
       <br />
       @endif
-    </div>
-
-    <div class ="categories-project">
-      @if(!empty($users))
-      <hr />
-      <h3>&emsp;Usuarios participantes</h3>
-      <hr />
-      <h5>
-        <table class ="table table-striped table-bordered">
-          <thead>
-            <tr>
-              <td>Usuario</td>
-              <td>Contacto</td>
-              <td>Dueño</td>
-              <td>Rol</td>
-
-            <tr>
-          </thead>
-          <tbody>
-            @foreach($users as $key => $value)
-              <tr>
-                <td>{{ $value->name }} {{ $value->lastname }}</td>
-                <td>{{ $value->email }}</td>
-                <td>
-                  @if($value->owner == 1)
-                  X
-                  @endif
-                </td>
-                <td>{{ $value->role }}</td>
-              </tr>
-            @endforeach
-          </tbody>
-        </table>
-      </h5>
-      <br />
-    @endif
     </div>
 
     <div class ="row">
@@ -206,8 +188,8 @@
       <br />
     </div>
     <br>
-    @endif
-  </div>
+      @endif
+
 
   <div class ="row">
     @if($project->has_pic == 1)
@@ -216,10 +198,13 @@
         <hr />
         <h4>Imagen de proyecto</h4>
         <hr />
-        {{ Html::image('img/projects/' . $project->id . '.png', 'Proyecto', array('class' => 'show_project_img')) }}
+        <center>
+          {{ Html::image('img/projects/' . $project->id . '.png', 'Proyecto', array('class' => 'show_project_img')) }}
+        </center>
       </div>
     </div>
     @endif
+    <br />
     <div class ="col-md-6">
       <div class ="categories-project">
         <div class = "row">
@@ -244,7 +229,12 @@
   <br />
   <br />
 
+  </div>
+
 </div>
+
+
+
 <div class ="col-md-offset-4 map-wrapper">
 
   <div id="map"></div>
@@ -460,7 +450,7 @@
         center: {lat: 19.432608, lng: -99.133209},
         scrollwheel: false,
         styles:estilo,
-        zoom: 6
+        zoom: 15
       });
       <?php
         foreach ($points as $point) {
