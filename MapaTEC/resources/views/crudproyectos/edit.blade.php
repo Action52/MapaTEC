@@ -107,10 +107,16 @@
 
     <div class="form-group{{ $errors->has('campuses') ? ' has-error' : '' }}">
         <label for="campuses" class="control-label">Campus relacionados al proyecto</label>
-
             <select name ="campuses" class ="form-control" multiple>
               @foreach($campuses as $key => $value)
-                <option value ="{{ $value->id }}"> {{ $value->name}} </option>
+                @foreach($myCampus as $cam => $valor)
+                    @if($value->id==$valor->campus_id )
+                        <option value ="{{ $value->id }}" selected> {{ $value->name}} </option>
+                    @else
+                        <option value ="{{ $value->id }}"> {{ $value->name}} </option>
+                    @endif
+                
+                @endforeach
               @endforeach
             </select>
 

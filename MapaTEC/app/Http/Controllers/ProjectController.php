@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Validator;
 use Illuminate\Http\Request;
@@ -14,102 +13,92 @@ use App\major;
 use App\country;
 use App\state;
 use App\city;
-
 class ProjectController extends Controller
 {
     //
-
     public function index(){
       //get all the projects
       $user = \Auth::user();
       $id = $user->id;
       //Seleccionar los proyectos del usuario
-
-      $projects = \DB::select(\DB::raw("SELECT projects.id AS id, projects.name AS name, projects.description AS description
+      $projects = \DB::select(\DB::raw("SELECT projects.id AS id, projects.name AS name, projects.description AS description, projects.has_pic AS has_pic
         FROM projects, users, project_has_user
         WHERE users.id = '$user->id'
         AND project_has_user.user_id = '$user->id'
         AND projects.id = project_has_user.project_id"));
       //Obtener la info de cada proyecto
-
       //Load the view and pass the nerds with alias projects
-
       //return view('crudproyectos.index')->with('projects',$projects);
       return \View::make('crudproyectos.index')->with('projects', $projects);
     }
-
     /*
       Show the form for creating a new resource
-
       Return: response
     */
     public function create(){
       //Load strategicpartners
       $strategicpartners = strategicpartner::all();
-
       //Load users
       $users = User::all();
-
       //Load campuses
       $campuses = campus::all();
-
       //Load courses
       $courses = course::all();
-
       //Load majors
       $majors = major::all();
-
       //Load countries
       $countries = country::all();
-
       //Load states
       $states = state::all();
-
       //Load cities
       $cities = city::all();
-
       //Send the view with new info
       return \View::make('crudproyectos.create', compact('strategicpartners', 'users', 'campuses', 'courses','majors','countries', 'states', 'cities'));
     }
-
     /*
       Store a newly created resource in storage.
-
       Return: response
     */
     public function store(Request $request){
-
         $proyecto = new project;
         $proyecto->name = $request->name;
         $proyecto->description = $request->description;
         $proyecto->status = $request->status;
         //nota estoy tomando en proceso como 1 y terminado como 0
         $proyecto->pdf = "en proceso";
-        $proyecto->save();
-
         $userInfo=\Auth::user()->id;
         $idProyecto=$proyecto->id;
         //Proyecto y sus strategic partners
-
         \DB::table('project_has_user')->insert(['project_id' => $idProyecto, 'user_id' => $userInfo,'owner'=> 't','role'=>'Lider']);
-
         if ($request->sp_id!=null) {
           \DB::table('project_has_strategicpartner')->insert(['project_id' => $idProyecto, 'sp_id' => $request->sp_id]);
         }
-
         if ($request->category_id!=null) {
           \DB::table('project_has_category')->insert(['project_id' => $idProyecto, 'category_id' => $request->category_id]);
         }
         if ($request->campus!=null) {
          \DB::table('project_has_campus')->insert(['project_id' => $idProyecto, 'campus_id' => $request->campus]);
         }
-
-
-
+        if($proyecto->has_pic == 1){ //el usuario ya tiene imagen de perfil
+          $proyecto->has_pic = 0; //Para que si ocurre un error se ponga la predeterminada
+          File::delete($proyecto->id . '.png'); //borra la vieja
+        }
+        if($request->file('imagen')->isValid()){ //revisar que la imagen sea valida
+          $destinationPath = 'img/projects';
+          $extension = $request->file('imagen')->getClientOriginalExtension();
+          $fileName = $proyecto->id . '.' . $extension;
+          $request->file('imagen')->move($destinationPath, $fileName);
+          $proyecto->has_pic = 1;
+          $proyecto->save();
+        }
+        else{
+          return \Redirect::to('crudproyectos/create')
+            ->withErrors($validator)
+            ->withInput();
+        }
         \Session::flash('message', 'Proyecto agreagado exitosamente.');
       return \Redirect::to('crudproyectos');
     }
-
     /*
       Show a specified resource
       param : int $id
@@ -117,10 +106,8 @@ class ProjectController extends Controller
     */
     public function show($id){
       //Dado que hay muchas relaciones, hay que hacer varias queries
-
       //Info del proyecto
-      $project = project::find($id)->first();
-
+      $project = project::find($id);
       //Proyecto y sus strategic partners
       $strategicpartners = \DB::select(
         \DB::raw(
@@ -131,18 +118,16 @@ class ProjectController extends Controller
               project_has_strategicpartner.project_id = projects.id"
           )
       );
-
       //Proyecto y usuarios
       $users = \DB::select(
         \DB::raw(
-          "SELECT users.name AS name, users.lastname AS lastname, users.email as email, project_has_user.owner AS owner, project_has_user.role AS role
+          "SELECT users.id AS id, users.name AS name, users.lastname AS lastname, users.email as email, users.has_profile_pic AS has_profile_pic,project_has_user.owner AS owner, project_has_user.role AS role
           FROM users, project_has_user, projects
           WHERE users.id = project_has_user.user_id AND
             project_has_user.project_id = '$id' AND
             project_has_user.project_id = projects.id"
           )
       );
-
       //Proyecto y campus
       $campuses = \DB::select(
         \DB::raw(
@@ -153,7 +138,6 @@ class ProjectController extends Controller
           project_has_campus.project_id = projects.id"
           )
       );
-
       //Proyecto y categoria
       $categories = \DB::select(
         \DB::raw(
@@ -164,7 +148,6 @@ class ProjectController extends Controller
           project_has_category.project_id = projects.id"
           )
       );
-
       //Proyecto y tiempo
       $times = \DB::select(
         \DB::raw(
@@ -175,7 +158,6 @@ class ProjectController extends Controller
           project_has_time.project_id = projects.id"
           )
       );
-
       //Proyecto y carreras
       $majors = \DB::select(
         \DB::raw(
@@ -186,7 +168,6 @@ class ProjectController extends Controller
           project_has_major.project_id = projects.id"
           )
       );
-
       //Proyecto y cursos
       $courses = \DB::select(
         \DB::raw(
@@ -197,8 +178,6 @@ class ProjectController extends Controller
           project_has_course.project_id = projects.id"
           )
       );
-
-
       //Proyecto y puntos
       $points = \DB::select(
         \DB::raw(
@@ -212,10 +191,8 @@ class ProjectController extends Controller
               projects.id = '$id'
           ")
       );
-
       return \View::make('crudproyectos.show',compact('project', 'strategicpartners', 'users', 'campuses', 'categories', 'times', 'majors', 'courses', 'points'));
     }
-
     /*
       Show the form for editing the specified resource
       param: int $id
@@ -224,35 +201,25 @@ class ProjectController extends Controller
     public function edit($id){
       //project
       $project = project::find($id);
-
       //Load strategicpartners
       $strategicpartners = strategicpartner::all();
-
       //Load users
       $users = User::all();
-
       //Load campuses
       $campuses = campus::all();
-
       //Load courses
       $courses = course::all();
-
       //Load majors
       $majors = major::all();
-
       //Load countries
       $countries = country::all();
-
       //Load states
       $states = state::all();
-
       //Load cities
       $cities = city::all();
-
       //Send the view with new info
       return \View::make('crudproyectos.edit', compact('project', 'strategicpartners', 'users', 'campuses', 'courses','majors','countries', 'states', 'cities'));
     }
-
     /*
       Update the specified resource in storage
       param: int $id
@@ -261,9 +228,7 @@ class ProjectController extends Controller
     public function update(Request $request, $id){
       destroy($id);
       store($request);
-
     }
-
     /*
       Remove the specified resource form storage
       param int $id
@@ -272,10 +237,7 @@ class ProjectController extends Controller
     public function destroy($id){
       $project = project::find($id);
       $project->delete();
-
       \Session::flash('message', 'Proyecto eliminado exitosamente.');
       return \Redirect::to('crudproyectos');
-
     }
-
 }
