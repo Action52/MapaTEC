@@ -1,37 +1,69 @@
 <div class ="row header-mapatec">
+  <br />
   <div class ="col-md-2">
     <!--Aqui va el logo-->
-    <a href="{{ URL('home') }}">{{ Html::image('../img/logo.png', 'Menú Principal', array('height' => '75', 'width' => '75')) }}
-    {{ Html::image('../img/itesm.png', 'Menú Principal', array('height' => '75', 'width' => '75')) }}</a>
+    <a href="{{ URL('home') }}">
+    {{ Html::image('../img/itesm.png', 'Menú Principal', array('height' => '52', 'width' => '52')) }}</a>
   </div>
-  <div class ="col-md-2">
-    <a href="crudproyectos/create">Nuevo proyecto</a>
+  <div class ="col-md-5">
+    <div class ="row" style="">
+      <br />
+      <br />
+      <form class="form-horizontal" role="form" method="GET" action="{{ url('search') }}">
+        <input type ="text" class ="form-control searchInput" name ="busqueda" id ="busqueda" placeholder="Buscar por nombre, descripción, o categoría" style=""/>
+      </form>
+    </div>
+  </div>
+  <div class ="col-md-5">
+    <div class ="row">
+      <div class ="col-sm-3">
 
-  </div>
-  <div class = "col-md-2">
-    <a href ="{{ URL::to('crudproyectos') }}">Mis proyectos</a>
-  </div>
-  <div class = "col-md-2">
-    <a href ="{{ URL::to('user/' . Auth::user()->id . '/edit') }}">Editar cuenta</a>
-    <a href ="deleteUser/{{ Auth::user()->id }}">Eliminar cuenta</a>
-  </div>
-  <div class = "col-md-2">
-    <!--Aqui va el form de logout-->
-    <a href="{{ route('logout') }}"
-        onclick="event.preventDefault();
-                 document.getElementById('logout-form').submit();">
-        Logout
-    </a>
+      </div>
+      <div class ="col-sm-6">
+        <div class ="menu-wrap">
+          <nav class ="menu">
+            <ul class ="clearfix">
+              <li>
+                {{ Auth::user()->name }}
 
-    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-        {{ csrf_field() }}
-    </form>
+              @if(Auth::user()->has_profile_pic == 1)
+                <a href="{{ URL::to('user/' . Auth::user()->id) }}">{{ Html::image('../img/profilePics/' . Auth::user()->id . '.png' , 'Perfil', array('height' => '50', 'width' => '50', 'class' => 'profile-pic')) }}</a>
+              @else
+                <a href="{{ URL::to('user/' . Auth::user()->id) }}">{{ Html::image('../img/profilePics/default.png' , 'Perfil', array('height' => '50', 'width' => '50', 'class' => 'profile-pic')) }}</a>
+              @endif
+
+                <span class="arrow">&#9660;</span>
+                <ul class="sub-menu">
+                  <li>
+                    <a href="{{ URL::to('crudproyectos') }}">Mis proyectos</a>
+                  </li>
+                  <li>
+                    <a href="crudproyectos/create">Crear proyecto</a>
+                  </li>
+                  <li>
+                    <a href ="{{ URL::to('user/' . Auth::user()->id . '/edit') }}">Editar cuenta</a>
+                  </li>
+                  <li>
+                    <a href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                        Cerrar sesión
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+      </div>
+      <div class ="col-sm-1">
+        <a href="{{ URL('home') }}">{{ Html::image('../img/logo.png', 'Menú Principal', array('height' => '52', 'width' => '52')) }}</a>
+      </div>
+    </div>
   </div>
-  <div class ="col-md-3">
-    @if(Auth::user()->has_profile_pic == 1)
-      {{ Html::image('../img/profilePics/' . Auth::user()->id . '.png' , 'Perfil', array('height' => '50', 'width' => '50')) }}
-    @else
-      {{ Html::image('../img/profilePics/default.png' , 'Perfil', array('height' => '50', 'width' => '50')) }}
-    @endif
-  </div>
+
 </div>

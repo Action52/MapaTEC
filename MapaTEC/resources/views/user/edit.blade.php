@@ -26,18 +26,6 @@
                   @endif
           </div>
 
-          <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-              <label for="email" class="control-label">Email</label>
-
-                  <input id="email" type="text" class="form-control" name="email" value="{{ $user->email }}" required autofocus>
-
-                  @if ($errors->has('email'))
-                      <span class="help-block">
-                          <strong>{{ $errors->first('email') }}</strong>
-                      </span>
-                  @endif
-          </div>
-
           <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
               <label for="password" class="control-label">Contraseña</label>
 
@@ -78,6 +66,8 @@
         </div>
 
       {{ Form::close() }}
+
+      <a href ="deleteUser/{{ Auth::user()->id }}">Eliminar cuenta</a>
     </div>
   </div>
 @endsection
