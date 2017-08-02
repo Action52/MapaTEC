@@ -46,7 +46,7 @@
         <label for="imagen" class="control-label">Suba una imagen que identifique a su proyecto</label>
 
 
-            <input id="imagen" type="file" class="form-control" name="imagen" value="{{ old('imagen') }}" required autofocus></textarea>
+            <input id="imagen" type="file" class="form-control" name="imagen" value="{{ old('imagen') }}"  autofocus></textarea>
 
             @if ($errors->has('imagen'))
                 <span class="help-block">

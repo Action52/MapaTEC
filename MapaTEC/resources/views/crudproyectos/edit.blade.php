@@ -105,22 +105,7 @@
 
     </div>
 
-    <div class="form-group{{ $errors->has('campuses') ? ' has-error' : '' }}">
-        <label for="campuses" class="control-label">Campus relacionados al proyecto</label>
-            <select name ="campuses" class ="form-control" multiple>
-              @foreach($campuses as $key => $value)
-                @foreach($myCampus as $cam => $valor)
-                    @if($value->id==$valor->campus_id )
-                        <option value ="{{ $value->id }}" selected> {{ $value->name}} </option>
-                    @else
-                        <option value ="{{ $value->id }}"> {{ $value->name}} </option>
-                    @endif
-                
-                @endforeach
-              @endforeach
-            </select>
-
-    </div>
+   
 
     <div class="form-group{{ $errors->has('categories') ? ' has-error' : '' }}">
         <strong>Indique las categorías del proyecto separándolas con un espacio</strong>
@@ -196,8 +181,12 @@
   <div id="map"></div>
 </div>
     <script>
-    var map;
-
+    var markers = [];
+    //window.alert({{ $project->latitud}});
+    var latitud = {{ $project->latitud}};
+    //window.alert({{ $project->longitud}});
+    var longitud= {{ $project->longitud}};
+    //var nombreP = {{ $project->name}};
     function initMap() {
       // Create a map object and specify the DOM element for display.
       var estilo = [
@@ -403,52 +392,36 @@
         ]
     }
 ];
-      var myPos = {lat: 19.432608, lng: -99.133209 };
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 19.432608, lng: -99.133209},
-        styles:estilo,
+      var myPos = {lat:latitud , lng: longitud};
+      var map = new google.maps.Map(document.getElementById('map'), {
+        center: myPos,
         scrollwheel: false,
-        zoom: 6
-
+        styles:estilo,
+        
       });
+      
+      
+        var marker = new google.maps.Marker({
+          position: myPos,
+          map: map,
 
-      var marker;
+          title: "Prueba"
+        });
 
-      map.addListener('mousemove', function(event) {
-        if ( marker ) {
-          marker.setPosition(event.latLng);
-        } else {
-          marker = new google.maps.Marker({
-            position: event.latLng,
-            map: map
-          });
-          marker.setMap(map);
-        }
-      });
+        markers.push(marker);
+              
+              var bounds = new google.maps.LatLngBounds();
+              for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+                bounds.extend(markers[i].position);
+              }
+              map.fitBounds(bounds);
 
-      map.addListener('click', function(event) {
-        if ( marker ) {
-          marker.setPosition(event.latLng);
-
-          google.maps.event.clearListeners(map, 'mousemove');
-          document.getElementById("lat").value = event.latLng.lat();
-          document.getElementById("lon").value = event.latLng.lng();
-        }
-      });
+      
     }
 
 
-function placeMarker(location) {
-  if ( marker ) {
-    marker.setPosition(location);
-  } else {
-    marker = new google.maps.Marker({
-      position: location,
-      map: map
-    });
-    marker.setMap(map);
-  }
-}
+
 
 
     </script>

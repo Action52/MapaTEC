@@ -240,6 +240,12 @@
   <div id="map"></div>
 </div>
     <script>
+    var markers = [];
+    //window.alert({{ $project->latitud}});
+    var latitud = {{ $project->latitud}};
+    //window.alert({{ $project->longitud}});
+    var longitud= {{ $project->longitud}};
+    //var nombreP = {{ $project->name}};
     function initMap() {
       var estilo = [
     {
@@ -445,9 +451,8 @@
     }
   ];
       // Create a map object and specify the DOM element for display.
-      var myPos = {lat: 19.432608, lng: -99.133209 };
       var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 19.432608, lng: -99.133209},
+        center: {lat: latitud, lng: longitud},
         scrollwheel: false,
         styles:estilo,
         zoom: 15
@@ -455,15 +460,21 @@
       <?php
         foreach ($points as $point) {
       ?>
-      var myPos = {lat: <?php echo $point->lat?>, lng: <?php echo $point->lon?>};
+      var myPos = {lat:latitud , lng: longitud};
         var marker = new google.maps.Marker({
           position: myPos,
           map: map,
 
-          title: 'Prueba!'
+          title: "Prueba"
         });
-
-        map.setCenter(marker.getPosition());
+        markers.push(marker);
+              
+              var bounds = new google.maps.LatLngBounds();
+              for (var i = 0; i < markers.length; i++) {
+                markers[i].setMap(map);
+                bounds.extend(markers[i].position);
+              }
+              map.fitBounds(bounds);
       <?php } ?>
     }
 

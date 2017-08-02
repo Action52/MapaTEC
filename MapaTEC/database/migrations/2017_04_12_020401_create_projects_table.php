@@ -20,6 +20,8 @@ class CreateProjectsTable extends Migration
             $table->integer('status');
             $table->string('pdf');
             $table->tinyInteger('has_pic')->default(0);
+            $table->float('latitud');
+            $table->float('longitud');
             $table->timestamps();
         });
 

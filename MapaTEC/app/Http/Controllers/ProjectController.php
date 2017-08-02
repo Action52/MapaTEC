@@ -66,6 +66,17 @@ class ProjectController extends Controller
         $proyecto->status = $request->status;
         //nota estoy tomando en proceso como 1 y terminado como 0
         $proyecto->pdf = "en proceso";
+        $proyecto->latitud = $request->lat;
+        $proyecto->longitud = $request->lon;
+        /*if($request->file('imagen')->isValid()){ //revisar que la imagen sea valida
+          $destinationPath = 'img/projects';
+          $extension = $request->file('imagen')->getClientOriginalExtension();
+          $fileName = $proyecto->id . '.' . $extension;
+          $request->file('imagen')->move($destinationPath, $fileName);
+          $proyecto->has_pic = 1;  
+        }*/
+        $proyecto->has_pic = 0; 
+        $proyecto->save();
         $userInfo=\Auth::user()->id;
         $idProyecto=$proyecto->id;
         //Proyecto y sus strategic partners
@@ -83,19 +94,8 @@ class ProjectController extends Controller
           $proyecto->has_pic = 0; //Para que si ocurre un error se ponga la predeterminada
           File::delete($proyecto->id . '.png'); //borra la vieja
         }
-        if($request->file('imagen')->isValid()){ //revisar que la imagen sea valida
-          $destinationPath = 'img/projects';
-          $extension = $request->file('imagen')->getClientOriginalExtension();
-          $fileName = $proyecto->id . '.' . $extension;
-          $request->file('imagen')->move($destinationPath, $fileName);
-          $proyecto->has_pic = 1;
-          $proyecto->save();
-        }
-        else{
-          return \Redirect::to('crudproyectos/create')
-            ->withErrors($validator)
-            ->withInput();
-        }
+        
+        
         \Session::flash('message', 'Proyecto agreagado exitosamente.');
       return \Redirect::to('crudproyectos');
     }
