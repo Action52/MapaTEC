@@ -38,10 +38,14 @@ Route::get('pr', function()
     return View::make('pages.pr');
 });
 
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
+
+Route::post('user/{id}/contactUser', 'UserController@contactUser');
 
 Route::get('search', 'SearchEngineController@search');

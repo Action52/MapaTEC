@@ -8,7 +8,7 @@ LEGASPI  -Falta conectar completamente (con cada tabla relacional) el create y e
   -Para borrar un proyecto agregar un mensaje de confirmación.
 
 CRUD usuario
-  -Falta hacer cambios en las opciones y vista de editar usuario
+  -Falta hacer cambios en las opciones y vista de editar usuario.
   -Falta hacer casi al 100% la vista de perfil del usuario (la actual no me acaba de convencer). (Tiene que tener un pequeño formulario de contacto)
   -Para borrar la cuenta agregar un mensaje de confirmación.
 

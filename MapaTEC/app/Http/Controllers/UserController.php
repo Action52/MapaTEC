@@ -15,6 +15,8 @@ use App\country;
 use App\state;
 use App\city;
 use \Input as Input;
+use Mail;
+
 
 class UserController extends Controller
 {
@@ -158,6 +160,21 @@ class UserController extends Controller
       route('logout');
       return \Redirect::to('login');
 
+    }
+
+    public function contactUser(Request $request, $id){
+
+      $user = User::findOrFail($id);
+
+      \Session::flash('message', 'Correo enviado correctamente.');
+
+      Mail::raw($request->input('contenido'), function($message) use ($user, $request){
+        $message->from(\Auth::user()->email, \Auth::user()->name);
+        $message->to($user->email, $user->name);
+        $message->subject($request->input('asunto'));
+      });
+
+      return \Redirect::to('user/' . $user->id);
     }
 
 }

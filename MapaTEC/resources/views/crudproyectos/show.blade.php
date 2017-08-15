@@ -242,7 +242,7 @@
     <script>
     var markers = [];
     //window.alert({{ $project->latitud}});
-    var latitud = {{ $project->latitud}};
+    var latitud = {{ $project->latitud }};
     //window.alert({{ $project->longitud}});
     var longitud= {{ $project->longitud}};
     //var nombreP = {{ $project->name}};
@@ -455,7 +455,7 @@
         center: {lat: latitud, lng: longitud},
         scrollwheel: false,
         styles:estilo,
-        zoom: 15
+        zoom: 10
       });
       <?php
         foreach ($points as $point) {
@@ -468,13 +468,13 @@
           title: "Prueba"
         });
         markers.push(marker);
-              
+
               var bounds = new google.maps.LatLngBounds();
               for (var i = 0; i < markers.length; i++) {
                 markers[i].setMap(map);
                 bounds.extend(markers[i].position);
               }
-              map.fitBounds(bounds);
+              map.setZoom(15);
       <?php } ?>
     }
 
