@@ -1,6 +1,8 @@
 @extends('layouts.default')
-
 @section('sidebar')
+  @php
+    $i = 1;
+  @endphp
   <div class ="col-md-4 project-description-box">
     @if(!empty($projects))
       <h2>Resultados de búsqueda para: </h2>
@@ -9,7 +11,7 @@
         <hr />
         <div class ="row">
           <div class ="col-sm-1">
-
+            <h2>{{ $i }}</h2>
           </div>
           <div class ="col-sm-10" onClick ="">
             <h5><strong>{{ $value->name }}</strong></h5>
@@ -21,6 +23,9 @@
             <h4><a href ="{{ URL::to('crudproyectos/' . $value->id) }}">&#10145;</a></h4>
           </div>
         </div>
+        @php
+          $i = $i + 1;
+        @endphp
       @endforeach
     @else
       <h2>Lo sentimos, no encontramos ningún proyecto relacionado con: </h2>
@@ -244,13 +249,42 @@
   ];
 
   // Create a map object and specify the DOM element for display.
-  var myPos = {lat: 19.432608, lng: -99.133209 };
+  var myPos = { lat: 19.432608, lng: -99.133209 };
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 19.432608, lng: -99.133209},
     scrollwheel: false,
     styles:estilo,
     zoom: 6
   });
+
+  var marker;
+  var pos;
+
+  var infoProj = new Array(<?php echo $i?>);
+
+  var labels = new Array(<?php echo $i?>);
+  var markers = new Array(<?php echo $i?>);
+  var titles = new Array(<?php echo $i?>);
+  for(i = 0; i < labels.length; i++){
+    labels[i] = i+1;
+  }
+  var index = 0;
+
+  <?php foreach ($projects as $project) { ?>
+    pos = { lat: <?php echo $project->lat ?> , lng: <?php echo $project->lon ?> };
+    titles[index] = '<?php echo $project->name ?>';
+    marker = new google.maps.Marker({
+      position: pos,
+      map: map,
+      title: '<?php echo $project->name ?>',
+      label: {text: labels[index].toString(), color: 'black'},
+      icon: 'img/marker.png'
+    });
+
+    markers[index] = marker;
+
+    index++;
+  <?php } ?>
 
 
 }

@@ -41,6 +41,7 @@ class CreateCategoriesTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('user_has_category');
         Schema::dropIfExists('categories');
     }
 }

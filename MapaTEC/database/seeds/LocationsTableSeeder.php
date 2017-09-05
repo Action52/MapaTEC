@@ -29,5 +29,10 @@ class LocationsTableSeeder extends Seeder
         'project_id' => 1,
         'location_id' => 1,
       ]);
+      //Seeds para tablas cruce
+      DB::table('project_has_location')->insert([
+        'project_id' => 2,
+        'location_id' => 2,
+      ]);
     }
 }

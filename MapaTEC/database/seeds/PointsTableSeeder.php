@@ -32,5 +32,12 @@ class PointsTableSeeder extends Seeder
         'location_id' => 1,
         'point_id' => 1,
       ]);
+
+      //Seeds para tablas cruce
+      DB::table('location_has_point')->insert([
+        'location_id' => 2,
+        'point_id' => 2,
+      ]);
+
     }
 }
