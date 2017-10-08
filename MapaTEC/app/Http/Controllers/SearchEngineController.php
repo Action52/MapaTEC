@@ -67,7 +67,14 @@ class SearchEngineController extends Controller
           )
       );
     }
-    return \View::make('results', compact('projects', 'searchString'));
+
+    $campuses = \DB::select(
+      \DB::raw(
+        "SELECT id, name, ST_X(geom) as lat, ST_Y(geom) as lon FROM campuses"
+        )
+    );
+
+    return \View::make('results', compact('projects', 'searchString', 'campuses'));
   }
 
 

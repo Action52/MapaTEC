@@ -31,6 +31,14 @@
       <h2>Lo sentimos, no encontramos ningún proyecto relacionado con: </h2>
       <h4>{{ $searchString }}</h4>
     @endif
+
+    <div class ="row">
+      <center>
+        Campus {{ Html::image('../img/campuslogo.png') }}
+        Proyecto {{ Html::image('../img/marker.png') }}
+      </center>
+
+    </div>
   </div>
 @endsection
 
@@ -279,6 +287,21 @@
       title: '<?php echo $project->name ?>',
       label: {text: labels[index].toString(), color: 'black'},
       icon: 'img/marker.png'
+    });
+
+    markers[index] = marker;
+
+    index++;
+  <?php } ?>
+
+  <?php foreach ($campuses as $campus) { ?>
+    pos = { lat: <?php echo $campus->lat ?> , lng: <?php echo $campus->lon ?> };
+    titles[index] = '<?php echo $campus->name ?>';
+    marker = new google.maps.Marker({
+      position: pos,
+      map: map,
+      title: '<?php echo $campus->name ?>',
+      icon: 'img/campuslogo.png'
     });
 
     markers[index] = marker;

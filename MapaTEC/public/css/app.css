@@ -39,6 +39,19 @@
   align-items: center;
 }
 
+.adjustImage{
+  height: inherit;
+}
+
+.backgroundTec{
+  background-image: url('../img/campusPuebla.jpg');
+}
+
+.nomenclatura{
+  position: absolute;
+  vertical-align: bottom;
+}
+
 .project-box{
   border-radius: 5px;
   color: #000000;
