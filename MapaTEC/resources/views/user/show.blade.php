@@ -102,13 +102,18 @@
                   @endif
           </div>
 
-          
+
 
           <input id="sbmt" type="submit" class="btn btn-primary" name="submit" value="Enviar mensaje" class ="btn" required autofocus>
 
         </form>
       </div>
       <div class ="col-sm-1">
+
+      </div>
+      <div class ="row">
+        <br />
+        {{ Html::image('../img/logo.png', '', array('class' => 'img-responsive')) }}
 
       </div>
     </div>

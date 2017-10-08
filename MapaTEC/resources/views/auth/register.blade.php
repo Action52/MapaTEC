@@ -3,7 +3,7 @@
 <head>
     @include('includes.head')
 </head>
-<body class ="body-mapatec">
+<body class ="body-mapatec backgroundTec">
 
   <!--Incluyo el header en el layout principal-->
   @include('includes.headerNotLogged')
@@ -17,9 +17,9 @@
       <!-- Page Content -->
       <div class ="row">
         <div class ="col-md-6">
-          <div class ="col-md-2 sidebar-register">
-            <img src ="img/itesm.png" height ="50" width ="50">
-          </div>
+          <br />
+
+          {{ Html::image('../img/logo.png', '', array('class' => 'img-responsive')) }}
         </div>
         <div class ="col-md-6 register-space register">
           <h1>Registro</h1>
@@ -57,6 +57,34 @@
                             </span>
                         @endif
                     </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                    <label for="description" class="col-md-4 control-label">Descripción breve</label>
+
+                    <div class="col-md-6">
+                        <input id="description" type="text" class="form-control" name="description" value="{{ old('description') }}" required autofocus>
+
+                        @if ($errors->has('description'))
+                            <span class="help-block">
+                                <strong>{{ $errors->first('description') }}</strong>
+                            </span>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="form-group{{ $errors->has('interests') ? ' has-error' : '' }}">
+                  <label for="description" class="col-md-4 control-label">Áreas de interés</label>
+                  <div class="col-md-6">
+                      <input type ="text" value ="{{ old('interests') }}" name ="interests" class="form-control" required autofocus/>
+
+                      @if ($errors->has('interests'))
+                          <span class="help-block">
+                              <strong>{{ $errors->first('interests') }}</strong>
+                          </span>
+                      @endif
+                  </div>
+
                 </div>
 
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
