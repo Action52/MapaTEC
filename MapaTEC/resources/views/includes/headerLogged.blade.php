@@ -38,7 +38,7 @@
                     <a href="{{ URL::to('crudproyectos') }}">Mis proyectos</a>
                   </li>
                   <li>
-                    <a href="crudproyectos/create">Crear proyecto</a>
+                    <a href="{{ URL::to('crudproyectos/create')}}">Crear proyecto</a>
                   </li>
                   <li>
                     <a href ="{{ URL::to('user/' . Auth::user()->id . '/edit') }}">Editar cuenta</a>

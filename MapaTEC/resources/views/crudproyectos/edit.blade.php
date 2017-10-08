@@ -395,19 +395,18 @@
       var myPos = {lat:latitud , lng: longitud};
       var map = new google.maps.Map(document.getElementById('map'), {
         center: myPos,
-        scrollwheel: false,
         styles:estilo,
-        
+        scrollwheel: false,
+        zoom: 6 
       });
       
       
         var marker = new google.maps.Marker({
           position: myPos,
           map: map,
-
           title: "Prueba"
+          //icon: '../img/marker.png'
         });
-
         markers.push(marker);
               
               var bounds = new google.maps.LatLngBounds();
@@ -415,15 +414,9 @@
                 markers[i].setMap(map);
                 bounds.extend(markers[i].position);
               }
-              map.fitBounds(bounds);
-
+              //map.fitBounds(bounds);
       
     }
-
-
-
-
-
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDxuma0ZigWEZMRX4xxLWMz3zIqxVYIykM&callback=initMap"async defer></script>
 </body>

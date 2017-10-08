@@ -464,8 +464,8 @@
         var marker = new google.maps.Marker({
           position: myPos,
           map: map,
-
-          title: "Prueba"
+          title: "Prueba",
+          icon: '../img/marker.png'
         });
         markers.push(marker);
 

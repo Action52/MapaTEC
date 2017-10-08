@@ -426,9 +426,11 @@
         } else {
           marker = new google.maps.Marker({
             position: event.latLng,
-            map: map
+            map: map,
+            icon: '../img/marker.png'
           });
           marker.setMap(map);
+          
         }
       });
 
@@ -450,7 +452,9 @@ function placeMarker(location) {
   } else {
     marker = new google.maps.Marker({
       position: location,
-      map: map
+      map: map,
+      title:"Tu proyecto",
+      icon: '/../img/marker.png'
     });
     marker.setMap(map);
   }

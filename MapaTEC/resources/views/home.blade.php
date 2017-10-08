@@ -1,5 +1,12 @@
 @extends('layouts.default')
-
+@php
+    $i = 1;
+@endphp
+@foreach ($projects as $key => $value)
+    @php
+    $i = $i + 1;
+    @endphp
+@endforeach
 
 @section('sidebar')
 <div class ="col-md-4  project-creation-box">
@@ -12,6 +19,7 @@
           <input id="toggle-drawing"  type="button" value="Herramientas de dibujo">
         </div>
         <hr>
+  
 </div>
 
 
@@ -239,6 +247,34 @@
             zoom: 6
 
           });
+          var marker;
+          var pos;
+
+          var infoProj = new Array(<?php echo $i?>);
+
+          var labels = new Array(<?php echo $i?>);
+          markers = new Array(<?php echo $i?>);
+          var titles = new Array(<?php echo $i?>);  
+          for(i = 0; i < labels.length; i++){
+                labels[i] = i+1;
+          }
+          var index = 0;
+
+          <?php foreach ($projects as $project) { ?>
+            pos = { lat: <?php echo $project->lat ?> , lng: <?php echo $project->lon ?> };
+            titles[index] = '<?php echo $project->name ?>';
+            marker = new google.maps.Marker({
+              position: pos,
+              map: map,
+              title: '<?php echo $project->name ?>',
+              label: {text: labels[index].toString(), color: 'black'},
+              icon: 'img/marker.png'
+            });
+
+            markers[index] = marker;
+
+            index++;
+          <?php } ?>
           //for para obtener los proyectos
           /*
           for (var i = 0; i < locations.length; i++) {
@@ -284,7 +320,24 @@
                 ]
               }
             });
-          
+        drawingManager.addListener('overlaycomplete', function(event) {
+          // First, check if there is an existing polygon.
+          // If there is, get rid of it and remove the markers
+          if (polygon) {
+            polygon.setMap(null);
+            hideListings(markers);
+          }
+          // Switching the drawing mode to the HAND (i.e., no longer drawing).
+          drawingManager.setDrawingMode(null);
+          // Creating a new editable polygon from the overlay.
+          polygon = event.overlay;
+          polygon.setEditable(true);
+          // Searching within the polygon.
+          searchWithinPolygon();
+          // Make sure the search is re-done if the poly is changed.
+          polygon.getPath().addListener('set_at', searchWithinPolygon);
+          polygon.getPath().addListener('insert_at', searchWithinPolygon);
+        });
            
           
     }
@@ -294,7 +347,7 @@
               markers[i].setMap(map);
               bounds.extend(markers[i].position);
             }
-            map.fitBounds(bounds);
+            //map.fitBounds(bounds);
           }
 
           function hideListings() {
