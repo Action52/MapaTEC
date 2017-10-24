@@ -76,6 +76,34 @@ class SearchEngineController extends Controller
 
     return \View::make('results', compact('projects', 'searchString', 'campuses'));
   }
+  public function advancedSearch(Request $request){
+    //Assure string is pure
+    $searchString = "Busqueda Avanzada";
+    $projects = 0;
+    //Perform the search
+   //cambiar
+    $projects = \DB::select(
+      \DB::raw(
+        "SELECT projects.id AS id, projects.name AS name, projects.description AS description, ST_X(points.geom) AS lat, ST_Y(points.geom) AS lon
+          FROM projects, project_has_location, location_has_point, locations, points
+          WHERE
+                  project_has_location.project_id = projects.id
+              AND project_has_location.location_id = locations.id
+              AND location_has_point.location_id = locations.id
+              AND location_has_point.point_id = points.id
+          
+          "
+        )
+    );
+    
 
+    $campuses = \DB::select(
+      \DB::raw(
+        "SELECT id, name, ST_X(geom) as lat, ST_Y(geom) as lon FROM campuses"
+        )
+    );
+
+    return \View::make('results', compact('projects', 'searchString', 'campuses'));
+  }
 
 }

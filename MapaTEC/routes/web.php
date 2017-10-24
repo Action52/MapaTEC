@@ -49,3 +49,5 @@ Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 Route::post('user/{id}/contactUser', 'UserController@contactUser');
 
 Route::get('search', 'SearchEngineController@search');
+
+Route::get('advancedSearch', 'SearchEngineController@advancedSearch');

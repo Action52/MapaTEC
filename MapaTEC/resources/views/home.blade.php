@@ -19,7 +19,65 @@
           <input id="toggle-drawing"  type="button" value="Herramientas de dibujo">
         </div>
         <hr>
-  
+        <h1>Busqueda Avanzada</h1>
+  <form class="form-horizontal" role="form" method="GET" action="{{ url('advancedSearch') }}" enctype="multipart/form-data">
+  <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
+      <label for="status" class="control-label">Estatus</label>
+
+
+          <select name ="status" id="status" class ="form-control">
+            <option name="enproceso" value="1">En proceso</option>
+            <option name="terminado" value="0">Terminado</option>
+          </select>
+
+  </div>
+    <div class="form-group{{ $errors->has('times') ? ' has-error' : '' }}">
+          <br>
+            Semestre y año de inicio
+            <select name ="times_sem_start" class ="">
+              <option value ="EM"> EM </option>
+              <option value ="AD"> AD </option>
+              <option value ="EM"> V </option>
+            </select>
+            <select name ="times_year_start" class "">
+              @for($i = 1980; $i <= 2050; $i++)
+                <option value ="{{ $i }}"> {{ $i }} </option>
+              @endfor
+            </select>
+            <br>
+              Semestre y año de fin de proyecto
+              <select name ="times_sem_end" class ="">
+                <option value ="EM"> EM </option>
+                <option value ="AD"> AD </option>
+                <option value ="EM"> V </option>
+              </select>
+              <select name ="times_year_end" class "">
+                @for($i =2051 ; $i >= 1980; $i--)
+                  <option value ="{{ $i }}"> {{ $i }} </option>
+                @endfor
+              </select>
+    </div>
+    <div class="form-group{{ $errors->has('campuses') ? ' has-error' : '' }}">
+          <label for="campuses" class="control-label">Campus relacionado al proyecto</label>
+
+              <select name ="campuses" class ="form-control" >
+                @foreach($campuses as $key => $value)
+                  <option value ="{{ $value->id }}"> {{ $value->name}} </option>
+                @endforeach
+              </select>
+      </div>
+    <div class="form-group{{ $errors->has('majors') ? ' has-error' : '' }}">
+        <label for="majors" class="control-label">Indique la carrera de impacto del proyecto</label>
+
+            <select name ="majors" class ="form-control">
+              @foreach($majors as $key => $value)
+                <option value ="{{ $value->id }}"> {{ $value->program }} </option>
+              @endforeach
+            </select>
+    </div>
+    <input id="sbmt" type="submit" class="btn btn-primary" name="submit" value="Buscar" required autofocus>
+
+  </form>
 </div>
 
 

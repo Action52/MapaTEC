@@ -30,6 +30,16 @@ class HomeController extends Controller
             "
           )
       );
-        return \View::make('home', compact('projects'));
+        $campuses = \DB::select(
+          \DB::raw(
+            "SELECT id, name FROM campuses"
+            )
+        );
+        $majors = \DB::select(
+          \DB::raw(
+            "SELECT id, program FROM majors"
+            )
+        );
+        return \View::make('home', compact('projects', 'campuses','majors'));
     }
 }
