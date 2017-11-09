@@ -55,6 +55,18 @@
             @endif
     </div>
 
+    <div class="form-group{{ $errors->has('pdf') ? ' has-error' : '' }}">
+        <label for="pdf" class="control-label">Suba un pdf relacionado a su proyecto</label>
+
+            <input id="pdf" type="file" class="form-control" name="pdf" value="{{ old('pdf') }}"  autofocus></textarea>
+
+            @if ($errors->has('pdf'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('pdf') }}</strong>
+                </span>
+            @endif
+    </div>
+
     <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
         <label for="status" class="control-label">Estatus</label>
 
@@ -430,7 +442,7 @@
             icon: '../img/marker.png'
           });
           marker.setMap(map);
-          
+
         }
       });
 

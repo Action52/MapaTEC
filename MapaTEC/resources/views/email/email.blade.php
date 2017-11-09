@@ -1,2 +1,2 @@
-<h1>Click the Link To Verify Your Email</h1>
-Click the following link to verify your email <a href ="{{ url('verifyemail/'.$email_token) }}">Verify</a>
+<h1>MapaTec</h1>
+Haz click aquí para completar tu registro. <a href ="{{ url('verifyemail/'.$email_token) }}">Verificar</a>

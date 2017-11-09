@@ -73,10 +73,22 @@ class ProjectController extends Controller
           $extension = $request->file('imagen')->getClientOriginalExtension();
           $fileName = $proyecto->id . '.' . $extension;
           $request->file('imagen')->move($destinationPath, $fileName);
-          $proyecto->has_pic = 1;  
+          $proyecto->has_pic = 1;
         }*/
-        $proyecto->has_pic = 0; 
+        $proyecto->has_pic = 0;
         $proyecto->save();
+
+
+        if($request->file('pdf')->isValid()){
+          $destinationPath = 'pdf/';
+          $extension = $request->file('pdf')->getClientOriginalExtension();
+          $fileName = $proyecto->id . '.' . $extension;
+          $request->file('pdf')->move($destinationPath, $fileName);
+          $proyecto->pdf = $destinationPath . $fileName;
+        }
+
+
+
         $userInfo=\Auth::user()->id;
         $idProyecto=$proyecto->id;
         //Proyecto y sus strategic partners
@@ -94,8 +106,8 @@ class ProjectController extends Controller
           $proyecto->has_pic = 0; //Para que si ocurre un error se ponga la predeterminada
           File::delete($proyecto->id . '.png'); //borra la vieja
         }
-        
-        
+
+
         \Session::flash('message', 'Proyecto agreagado exitosamente.');
       return \Redirect::to('crudproyectos');
     }
