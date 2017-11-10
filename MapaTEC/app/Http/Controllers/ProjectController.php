@@ -87,20 +87,46 @@ class ProjectController extends Controller
           $proyecto->pdf = $destinationPath . $fileName;
         }
 
-
-
+        \DB::table('strategicpartners')->insert(['name' => $request->strategicpartner, 'email' => "a@o.com",'private_or_public'=> true,'moral_or_physical'=> true]);
+        $strategicpartners = \DB::select(
+        \DB::raw(
+          "SELECT id 
+            FROM strategicpartners
+            WHERE strategicpartners.name = '$request->strategicpartner' limit 1"
+          )
+      );
+        \DB::table('categories')->insert(['name' => $request->categories]);
+        $category_id = \DB::select(
+        \DB::raw(
+          "SELECT id 
+            FROM categories
+            WHERE categories.name = '$request->categories' limit 1"
+          )
+      );
+        /* problema con los cursos ya que debe de ser unico
+        \DB::table('courses')->insert(['name' => $request->cursos, 'code'=>$request->cursos]);
+        $cursos = \DB::select(
+        \DB::raw(
+          "SELECT id 
+            FROM courses
+            WHERE categories.name = '$request->cursos' limit 1"
+          )
+      );*/
+        print_r ($strategicpartners);
+        echo $strategicpartners[0]->id;
         $userInfo=\Auth::user()->id;
         $idProyecto=$proyecto->id;
         //Proyecto y sus strategic partners
         \DB::table('project_has_user')->insert(['project_id' => $idProyecto, 'user_id' => $userInfo,'owner'=> 't','role'=>'Lider']);
-        if ($request->sp_id!=null) {
-          \DB::table('project_has_strategicpartner')->insert(['project_id' => $idProyecto, 'sp_id' => $request->sp_id]);
+        \DB::table('project_has_strategicpartner')->insert(['project_id' => $idProyecto, 'sp_id' => $strategicpartners[0]->id]);
+        
+        \DB::table('project_has_category')->insert(['project_id' => $idProyecto, 'category_id' => $category_id[0]->id]);
+        //\DB::table('project_has_course')->insert(['project_id' => $idProyecto, 'course_id' => $cursos[0]->id]);
+        if ($request->campuses!=null) {
+         \DB::table('project_has_campus')->insert(['project_id' => $idProyecto, 'campus_id' => $request->campuses]);
         }
-        if ($request->category_id!=null) {
-          \DB::table('project_has_category')->insert(['project_id' => $idProyecto, 'category_id' => $request->category_id]);
-        }
-        if ($request->campus!=null) {
-         \DB::table('project_has_campus')->insert(['project_id' => $idProyecto, 'campus_id' => $request->campus]);
+        if ($request->majors!=null) {
+         \DB::table('project_has_major')->insert(['project_id' => $idProyecto, 'major_id' => $request->majors]);
         }
         if($proyecto->has_pic == 1){ //el usuario ya tiene imagen de perfil
           $proyecto->has_pic = 0; //Para que si ocurre un error se ponga la predeterminada

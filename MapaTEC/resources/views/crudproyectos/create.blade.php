@@ -110,11 +110,12 @@
     <div class="form-group{{ $errors->has('strategicpartners') ? ' has-error' : '' }}">
         <label for="strategicpartners" class="control-label">Socios estratégicos del proyecto</label>
 
-            <select name ="strategicpartners" class ="form-control" multiple>
-              @foreach($strategicpartners as $key => $value)
-                <option value ="{{ $value->id }}"> {{ $value->name }} </option>
-              @endforeach
-            </select>
+            <textarea type="text" name = "strategicpartner" class = "form-control" rows="3" required autofocus></textarea>
+            @if ($errors->has('strategicpartner'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('strategicpartner') }}</strong>
+                </span>
+            @endif
 
     </div>
 
@@ -153,18 +154,20 @@
     </div>
 
     <div class="form-group{{ $errors->has('courses') ? ' has-error' : '' }}">
-        <label for="courses" class="control-label">Indique los cursos del proyecto</label>
+        <label for="courses" class="control-label">Indique el curso del proyecto</label>
 
-            <select name ="cursos" class ="form-control" multiple>
-              @foreach($courses as $key => $value)
-                <option value ="{{ $value->id }}"> {{ $value->name }} </option>
-              @endforeach
-            </select>
+            <textarea name = "cursos" class = "form-control" rows="3" required autofocus></textarea>
+
+            @if ($errors->has('cursos'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('cursos') }}</strong>
+                </span>
+            @endif
 
     </div>
 
     <div class="form-group{{ $errors->has('majors') ? ' has-error' : '' }}">
-        <label for="majors" class="control-label">Indique las carreras de impacto del proyecto</label>
+        <label for="majors" class="control-label">Indique la carrera de impacto del proyecto</label>
 
             <select name ="majors" class ="form-control" multiple>
               @foreach($majors as $key => $value)
@@ -177,8 +180,8 @@
     <div class="form-group{{ $errors->has('location') ? ' has-error' : '' }}">
         <strong>Coloque un marcador en la posición geográfica de su proyecto</strong>
 
-            <input id="lat" type="hidden" class="form-control" name="lat" value="" required autofocus>
-            <input id="lon" type="hidden" class="form-control" name="lon" value="" required autofocus>
+            <input id="lat" type="hidden" class="form-control" name="lat" value="0" required autofocus>
+            <input id="lon" type="hidden" class="form-control" name="lon" value="0" required autofocus>
             <input id="resetMap" type="button" class="form-control" name="resetMap" value="Resetear posición" onClick ="initMap()" required autofocus>
     </div>
 
@@ -439,7 +442,7 @@
           marker = new google.maps.Marker({
             position: event.latLng,
             map: map,
-            icon: '../img/marker.png'
+            //icon: '../img/marker.png'
           });
           marker.setMap(map);
 
