@@ -84,13 +84,24 @@
     </div>
 
     <div class="form-group{{ $errors->has('strategicpartners') ? ' has-error' : '' }}">
-        <label for="strategicpartners" class="control-label">Socios estratégicos del proyecto</label>
+        <label for="strategicpartners" class="control-label">Socio estratégicos del proyecto</label>
 
             <select name ="strategicpartners" class ="form-control" multiple>
               @foreach($strategicpartners as $key => $value)
                 <option value ="{{ $value->id }}"> {{ $value->name }} </option>
               @endforeach
             </select>
+
+    </div>
+    <div class="form-group{{ $errors->has('strategicpartners') ? ' has-error' : '' }}">
+        <label for="strategicpartners" class="control-label">Email del socio</label>
+
+            <textarea type="text" name = "emailPartner" class = "form-control" rows="3" required autofocus></textarea>
+            @if ($errors->has('strategicpartner'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('strategicpartner') }}</strong>
+                </span>
+            @endif
 
     </div>
 

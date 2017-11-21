@@ -87,7 +87,7 @@ class ProjectController extends Controller
           $proyecto->pdf = $destinationPath . $fileName;
         }
 
-        \DB::table('strategicpartners')->insert(['name' => $request->strategicpartner, 'email' => "a@o.com",'private_or_public'=> true,'moral_or_physical'=> true]);
+        \DB::table('strategicpartners')->insert(['name' => $request->strategicpartner, 'email' => $request->emailPartner,'private_or_public'=> true,'moral_or_physical'=> true]);
         $strategicpartners = \DB::select(
         \DB::raw(
           "SELECT id 

@@ -44,7 +44,9 @@ class SearchEngineController extends Controller
     else{
       $projects = \DB::select(
         \DB::raw(
-          "SELECT projects.id AS id, projects.name AS name, projects.description AS description, ST_X(points.geom) AS lat, ST_Y(points.geom) AS lon
+          "SELECT projects.id AS id, projects.name AS name, projects.description AS description, projects.latitud AS lat, projects.longitud AS lon FROM projects, project_has_category, categories WHERE projects.name LIKE '$finalSearchString' OR (projects.id = project_has_category.project_id AND categories.id = project_has_category.category_id) ;
+          "
+          /*"SELECT projects.id AS id, projects.name AS name, projects.description AS description, ST_X(points.geom) AS lat, ST_Y(points.geom) AS lon
           FROM projects, project_has_category, categories, project_has_location, location_has_point, locations, points
           WHERE
             (projects.name LIKE '$finalSearchString'
@@ -63,7 +65,7 @@ class SearchEngineController extends Controller
             AND project_has_location.location_id = locations.id
             AND location_has_point.location_id = locations.id
             AND location_has_point.point_id = points.id
-            "
+            "*/
           )
       );
     }

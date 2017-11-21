@@ -108,7 +108,7 @@
     </div>
 
     <div class="form-group{{ $errors->has('strategicpartners') ? ' has-error' : '' }}">
-        <label for="strategicpartners" class="control-label">Socios estratégicos del proyecto</label>
+        <label for="strategicpartners" class="control-label">Socio estratégicos del proyecto</label>
 
             <textarea type="text" name = "strategicpartner" class = "form-control" rows="3" required autofocus></textarea>
             @if ($errors->has('strategicpartner'))
@@ -118,7 +118,17 @@
             @endif
 
     </div>
+    <div class="form-group{{ $errors->has('strategicpartners') ? ' has-error' : '' }}">
+        <label for="strategicpartners" class="control-label">Email del socio</label>
 
+            <textarea type="text" name = "emailPartner" class = "form-control" rows="3" required autofocus></textarea>
+            @if ($errors->has('strategicpartner'))
+                <span class="help-block">
+                    <strong>{{ $errors->first('strategicpartner') }}</strong>
+                </span>
+            @endif
+
+    </div>
     <div class="form-group{{ $errors->has('users') ? ' has-error' : '' }}">
         <label for="users" class="control-label">Usuarios relacionados al proyecto</label>
 
